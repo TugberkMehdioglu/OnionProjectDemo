@@ -1,3 +1,4 @@
+using Microsoft.Extensions.FileProviders;
 using Project.BLL.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication();
 builder.Services.AddDbContextService();
 builder.Services.AddIdentityService();
+
+builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
 var app = builder.Build();
 

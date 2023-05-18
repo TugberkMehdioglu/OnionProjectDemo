@@ -11,7 +11,9 @@ namespace Project.ENTITIES.Models
         public new string ID { get; set; } = null!;
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
+        public string FullName { get { return $"{FirstName} {LastName}"; } } //will not be in database
         public string Address { get; set; } = null!;
+        public string? ImagePath { get; set; }
 
         //Navigation Properties
         public AppUser AppUser { get; set; } = null!;

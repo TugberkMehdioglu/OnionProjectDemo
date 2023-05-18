@@ -13,6 +13,8 @@ namespace Project.MAP.Configurations
         public override void Configure(EntityTypeBuilder<AppUserProfile> builder)
         {
             base.Configure(builder);
+
+            builder.Ignore(x => x.FullName);
         }
     }
 }
