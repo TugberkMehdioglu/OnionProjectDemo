@@ -14,6 +14,7 @@ namespace Project.ENTITIES.Models
 
         //Navigation Properties
         public AppUser AppUser { get; set; } = null!;
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
     }
 }
  

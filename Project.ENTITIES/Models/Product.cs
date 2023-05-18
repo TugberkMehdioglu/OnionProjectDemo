@@ -16,5 +16,6 @@ namespace Project.ENTITIES.Models
 
         //Navigation Properties
         public Category Category { get; set; } = null!;
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
     }
 }
