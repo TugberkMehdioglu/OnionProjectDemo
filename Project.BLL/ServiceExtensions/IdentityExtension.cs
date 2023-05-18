@@ -12,7 +12,7 @@ namespace Project.BLL.ServiceExtensions
 {
     public static class IdentityExtension
     {
-        public static IServiceCollection AddDbContextService(this IServiceCollection services)
+        public static IServiceCollection AddIdentityService(this IServiceCollection services)
         {
             services.Configure<DataProtectionTokenProviderOptions>(options =>
             {

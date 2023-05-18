@@ -12,7 +12,7 @@ namespace Project.BLL.ServiceExtensions
 {
     public static class DbContextExtension
     {
-        public static IServiceCollection AddDbContext(this IServiceCollection services)
+        public static IServiceCollection AddDbContextService(this IServiceCollection services)
         {
             ServiceProvider provider = services.BuildServiceProvider();
             IConfiguration configuration = provider.GetService<IConfiguration>()!;
