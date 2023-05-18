@@ -10,7 +10,7 @@ namespace Project.ENTITIES.Models
     {
         public string ShippedAddress { get; set; } = null!;
         public decimal TotalPrice { get; set; }
-        public int AppUserID { get; set; }
+        public string AppUserID { get; set; } = null!;
 
         //Navigation Properties
         public AppUser AppUser { get; set; } = null!;

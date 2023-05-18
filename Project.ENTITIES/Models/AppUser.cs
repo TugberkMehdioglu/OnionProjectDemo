@@ -11,7 +11,7 @@ namespace Project.ENTITIES.Models
 {
     public class AppUser : IdentityUser, IEntity
     {
-        public int ID { get; set; }
+        public int ID { get; set; } //will not be in database
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
