@@ -10,11 +10,11 @@ namespace Project.COMMON.Tools
 {
     public static class ImageUploader
     {
-        public static async Task<string> UploadImageAsync(IFormFile picture, IFileProvider fileProvider, string entityImagePath)
+        public static async Task<string?> UploadImageAsync(IFormFile pictureToUpload, IFileProvider fileProvider, string entityImagePath)
         {
-            if (picture == null) return "To be upload picture is empty";
+            if (pictureToUpload == null) return "To be upload picture is empty !";
 
-            string extension = Path.GetExtension(picture.FileName);
+            string extension = Path.GetExtension(pictureToUpload.FileName);
 
             if (extension == "jpg" || extension == "gif" || extension == "png" || extension == "jpeg")
             {
@@ -25,10 +25,10 @@ namespace Project.COMMON.Tools
                 string newPicturePath = Path.Combine(userPictures.PhysicalPath!, randomFileName);
 
                 using FileStream stream = new FileStream(newPicturePath, FileMode.Create);
-                await picture.CopyToAsync(stream);
+                await pictureToUpload.CopyToAsync(stream);
 
                 entityImagePath = randomFileName;
-                return newPicturePath;
+                return null;
             }
             else return "Selected file is not a picture !";
         }
