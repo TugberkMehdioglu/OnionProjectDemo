@@ -52,7 +52,7 @@ namespace Project.DAL.Migrations
                         new
                         {
                             Id = "4d7b3bc1-f3aa-48ce-b587-5e7dc5557634",
-                            ConcurrencyStamp = "ceeaf1bf-59e6-467e-a608-811095684c66",
+                            ConcurrencyStamp = "8b3755d6-0114-4bc1-87b8-2d25330f749e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -252,17 +252,17 @@ namespace Project.DAL.Migrations
                         {
                             Id = "5c8defd5-91f2-4256-9f16-e7fa7546dec4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a151d5e-a79b-4a63-8e41-eb5d3ced41b2",
-                            CreatedDate = new DateTime(2023, 5, 22, 13, 35, 35, 267, DateTimeKind.Local).AddTicks(3514),
+                            ConcurrencyStamp = "baec4c6c-9a15-440c-a3aa-648f92c8bb2e",
+                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 385, DateTimeKind.Local).AddTicks(4983),
                             Email = "Admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN39tqoV3U/WDeN3jPxEHG1KYxwgtLfoAVRIIS/A5tiujUkMYyaHL+fjoKK6LQpxaw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGoBgBlrA+PZklIlzBxc3iLb/h276SwDmzRO1ACn6DdAoAYmqhjHB48xlg1L0vPeMQ==",
                             PhoneNumber = "05316453125",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "20692767-fa40-4d04-93e7-198c4b162aa1",
+                            SecurityStamp = "6b42d8f6-eb22-4d67-9824-73b2bc6c9e96",
                             Status = (byte)1,
                             TwoFactorEnabled = false,
                             UserName = "Admin"
@@ -310,7 +310,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = "5c8defd5-91f2-4256-9f16-e7fa7546dec4",
                             Address = "Yiğidin harman olduğu yer",
-                            CreatedDate = new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(3778),
+                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5472),
                             FirstName = "Tuğberk",
                             LastName = "Mehdioğlu",
                             Status = (byte)1
@@ -352,7 +352,7 @@ namespace Project.DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreatedDate = new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(3947),
+                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5682),
                             Description = "İşlemci fiyatları, modelleri ve güvenilir işlemci markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.",
                             Name = "İşlemci",
                             Status = (byte)1
@@ -360,7 +360,7 @@ namespace Project.DAL.Migrations
                         new
                         {
                             ID = 2,
-                            CreatedDate = new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(3952),
+                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5689),
                             Description = "Ekran kartı fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.",
                             Name = "Ekran Kartı",
                             Status = (byte)1
@@ -485,7 +485,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = 1,
                             CategoryID = 1,
-                            CreatedDate = new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(5280),
+                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7014),
                             Name = "AMD Ryzen™ 9 7950X3D Soket AM5 4.2GHz 128MB 120W 5nm İşlemci",
                             Price = 19.828m,
                             Status = (byte)1,
@@ -495,7 +495,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = 2,
                             CategoryID = 1,
-                            CreatedDate = new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(5288),
+                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7021),
                             Name = "Intel Core i9 13900 Soket 1700 13.Nesil 2GHz 32MB Önbellek 10nm İşlemci",
                             Price = 17.334m,
                             Status = (byte)1,
@@ -505,7 +505,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = 3,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(5290),
+                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7024),
                             Name = "GIGABYTE GeForce RTX 3090 Ti GAMING 24GB GDDR6X 384Bit Nvidia Ekran Kartı",
                             Price = 64.304m,
                             Status = (byte)1,
@@ -515,7 +515,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = 4,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(5292),
+                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7026),
                             Name = "MSI GeForce RTX 4090 SUPRIM X 24GB GDDR6X 384Bit DLSS 3 Ekran Kartı",
                             Price = 55.730m,
                             Status = (byte)1,

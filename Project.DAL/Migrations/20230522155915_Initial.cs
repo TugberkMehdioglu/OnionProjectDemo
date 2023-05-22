@@ -286,26 +286,26 @@ namespace Project.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4d7b3bc1-f3aa-48ce-b587-5e7dc5557634", "ceeaf1bf-59e6-467e-a608-811095684c66", "Admin", "ADMIN" });
+                values: new object[] { "4d7b3bc1-f3aa-48ce-b587-5e7dc5557634", "8b3755d6-0114-4bc1-87b8-2d25330f749e", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedDate", "DeletedDate", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "ModifiedDate", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "5c8defd5-91f2-4256-9f16-e7fa7546dec4", 0, "9a151d5e-a79b-4a63-8e41-eb5d3ced41b2", new DateTime(2023, 5, 22, 13, 35, 35, 267, DateTimeKind.Local).AddTicks(3514), null, "Admin@gmail.com", false, true, null, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEN39tqoV3U/WDeN3jPxEHG1KYxwgtLfoAVRIIS/A5tiujUkMYyaHL+fjoKK6LQpxaw==", "05316453125", false, "20692767-fa40-4d04-93e7-198c4b162aa1", (byte)1, false, "Admin" });
+                values: new object[] { "5c8defd5-91f2-4256-9f16-e7fa7546dec4", 0, "baec4c6c-9a15-440c-a3aa-648f92c8bb2e", new DateTime(2023, 5, 22, 18, 59, 15, 385, DateTimeKind.Local).AddTicks(4983), null, "Admin@gmail.com", false, true, null, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEGoBgBlrA+PZklIlzBxc3iLb/h276SwDmzRO1ACn6DdAoAYmqhjHB48xlg1L0vPeMQ==", "05316453125", false, "6b42d8f6-eb22-4d67-9824-73b2bc6c9e96", (byte)1, false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "ID", "CreatedDate", "DeletedDate", "Description", "ModifiedDate", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(3947), null, "İşlemci fiyatları, modelleri ve güvenilir işlemci markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "İşlemci", (byte)1 },
-                    { 2, new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(3952), null, "Ekran kartı fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "Ekran Kartı", (byte)1 }
+                    { 1, new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5682), null, "İşlemci fiyatları, modelleri ve güvenilir işlemci markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "İşlemci", (byte)1 },
+                    { 2, new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5689), null, "Ekran kartı fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "Ekran Kartı", (byte)1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "AppUserProfiles",
                 columns: new[] { "ID", "Address", "CreatedDate", "DeletedDate", "FirstName", "ImagePath", "LastName", "ModifiedDate", "Status" },
-                values: new object[] { "5c8defd5-91f2-4256-9f16-e7fa7546dec4", "Yiğidin harman olduğu yer", new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(3778), null, "Tuğberk", null, "Mehdioğlu", null, (byte)1 });
+                values: new object[] { "5c8defd5-91f2-4256-9f16-e7fa7546dec4", "Yiğidin harman olduğu yer", new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5472), null, "Tuğberk", null, "Mehdioğlu", null, (byte)1 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -317,10 +317,10 @@ namespace Project.DAL.Migrations
                 columns: new[] { "ID", "CategoryID", "CreatedDate", "DeletedDate", "ImagePath", "ModifiedDate", "Name", "Price", "Status", "Stock" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(5280), null, null, null, "AMD Ryzen™ 9 7950X3D Soket AM5 4.2GHz 128MB 120W 5nm İşlemci", 19.828m, (byte)1, (short)100 },
-                    { 2, 1, new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(5288), null, null, null, "Intel Core i9 13900 Soket 1700 13.Nesil 2GHz 32MB Önbellek 10nm İşlemci", 17.334m, (byte)1, (short)100 },
-                    { 3, 2, new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(5290), null, null, null, "GIGABYTE GeForce RTX 3090 Ti GAMING 24GB GDDR6X 384Bit Nvidia Ekran Kartı", 64.304m, (byte)1, (short)100 },
-                    { 4, 2, new DateTime(2023, 5, 22, 13, 35, 35, 266, DateTimeKind.Local).AddTicks(5292), null, null, null, "MSI GeForce RTX 4090 SUPRIM X 24GB GDDR6X 384Bit DLSS 3 Ekran Kartı", 55.730m, (byte)1, (short)100 }
+                    { 1, 1, new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7014), null, null, null, "AMD Ryzen™ 9 7950X3D Soket AM5 4.2GHz 128MB 120W 5nm İşlemci", 19.828m, (byte)1, (short)100 },
+                    { 2, 1, new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7021), null, null, null, "Intel Core i9 13900 Soket 1700 13.Nesil 2GHz 32MB Önbellek 10nm İşlemci", 17.334m, (byte)1, (short)100 },
+                    { 3, 2, new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7024), null, null, null, "GIGABYTE GeForce RTX 3090 Ti GAMING 24GB GDDR6X 384Bit Nvidia Ekran Kartı", 64.304m, (byte)1, (short)100 },
+                    { 4, 2, new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7026), null, null, null, "MSI GeForce RTX 4090 SUPRIM X 24GB GDDR6X 384Bit DLSS 3 Ekran Kartı", 55.730m, (byte)1, (short)100 }
                 });
 
             migrationBuilder.CreateIndex(

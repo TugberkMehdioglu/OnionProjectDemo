@@ -15,7 +15,7 @@ namespace Project.DAL.Repositories.Concretes
     {
         protected readonly MyContext _context;
 
-        protected BaseRepository(MyContext context)
+        public BaseRepository(MyContext context)
         {
             _context = context;
         }
