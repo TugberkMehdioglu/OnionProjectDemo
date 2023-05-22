@@ -15,6 +15,15 @@ namespace Project.MAP.Configurations
             base.Configure(builder);
 
             builder.Ignore(x => x.FullName);
+
+            builder.HasData(new AppUserProfile()
+            {
+                ID = "5c8defd5-91f2-4256-9f16-e7fa7546dec4",
+                FirstName = "Tuğberk",
+                LastName = "Mehdioğlu",
+                Address = "Yiğidin harman olduğu yer",
+                ImagePath = null
+            });
         }
     }
 }

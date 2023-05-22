@@ -13,6 +13,28 @@ namespace Project.MAP.Configurations
         public override void Configure(EntityTypeBuilder<Category> builder)
         {
             base.Configure(builder);
+
+            HashSet<Category> categories = new HashSet<Category>()
+            {
+                new()
+                {
+                    ID = 1,
+                    CreatedDate = DateTime.Now,
+                    Status=ENTITIES.Enums.DataStatus.Inserted,
+                    Name="İşlemci",
+                    Description="İşlemci fiyatları, modelleri ve güvenilir işlemci markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın."
+                },
+                new()
+                {
+                    ID = 2,
+                    CreatedDate = DateTime.Now,
+                    Status=ENTITIES.Enums.DataStatus.Inserted,
+                    Name="Ekran Kartı",
+                    Description="Ekran kartı fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın."
+                }
+            };
+
+            builder.HasData(categories);
         }
     }
 }
