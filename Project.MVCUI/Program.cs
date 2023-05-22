@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication();
 builder.Services.AddDbContextService();
 builder.Services.AddIdentityService();
+builder.Services.AddRepositoryManagerServices();
 
 builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 

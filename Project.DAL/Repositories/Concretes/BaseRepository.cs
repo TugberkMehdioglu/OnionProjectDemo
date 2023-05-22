@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Project.DAL.Repositories.Concretes
 {
-    public abstract class BaseRepository<T> : IRepository<T> where T : class, IEntity
+    public class BaseRepository<T> : IRepository<T> where T : class, IEntity
     {
         protected readonly MyContext _context;
 
