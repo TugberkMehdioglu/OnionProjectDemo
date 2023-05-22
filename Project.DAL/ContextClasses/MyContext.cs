@@ -52,7 +52,7 @@ namespace Project.DAL.ContextClasses
             };
 
             PasswordHasher<AppUser> hasher = new PasswordHasher<AppUser>();
-            hasher.HashPassword(user, "Password12*");
+            user.PasswordHash = hasher.HashPassword(user, "Password12*");
 
             builder.Entity<AppUser>().HasData(user);
         }
