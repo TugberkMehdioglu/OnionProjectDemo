@@ -12,7 +12,7 @@ using Project.DAL.ContextClasses;
 namespace Project.DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230522155915_Initial")]
+    [Migration("20230523082352_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,7 @@ namespace Project.DAL.Migrations
                         new
                         {
                             Id = "4d7b3bc1-f3aa-48ce-b587-5e7dc5557634",
-                            ConcurrencyStamp = "8b3755d6-0114-4bc1-87b8-2d25330f749e",
+                            ConcurrencyStamp = "ba904b65-65a8-465b-9b1f-0fe12ddb6dfa",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -254,17 +254,17 @@ namespace Project.DAL.Migrations
                         {
                             Id = "5c8defd5-91f2-4256-9f16-e7fa7546dec4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "baec4c6c-9a15-440c-a3aa-648f92c8bb2e",
-                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 385, DateTimeKind.Local).AddTicks(4983),
+                            ConcurrencyStamp = "14a7efd8-0120-4bb6-a2bf-92569cf85908",
+                            CreatedDate = new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(9150),
                             Email = "Admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGoBgBlrA+PZklIlzBxc3iLb/h276SwDmzRO1ACn6DdAoAYmqhjHB48xlg1L0vPeMQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMrnRuzDiab8mAl0/xPsTgllJfu/aRvS+MTiRX4Hw0kMTySw6SuM6P/hqpRWyX0q6Q==",
                             PhoneNumber = "05316453125",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6b42d8f6-eb22-4d67-9824-73b2bc6c9e96",
+                            SecurityStamp = "f0d3b846-e845-482b-95c4-d1897c86ad88",
                             Status = (byte)1,
                             TwoFactorEnabled = false,
                             UserName = "Admin"
@@ -312,7 +312,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = "5c8defd5-91f2-4256-9f16-e7fa7546dec4",
                             Address = "Yiğidin harman olduğu yer",
-                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5472),
+                            CreatedDate = new DateTime(2023, 5, 23, 11, 23, 52, 462, DateTimeKind.Local).AddTicks(8926),
                             FirstName = "Tuğberk",
                             LastName = "Mehdioğlu",
                             Status = (byte)1
@@ -354,7 +354,7 @@ namespace Project.DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5682),
+                            CreatedDate = new DateTime(2023, 5, 23, 11, 23, 52, 462, DateTimeKind.Local).AddTicks(9128),
                             Description = "İşlemci fiyatları, modelleri ve güvenilir işlemci markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.",
                             Name = "İşlemci",
                             Status = (byte)1
@@ -362,7 +362,7 @@ namespace Project.DAL.Migrations
                         new
                         {
                             ID = 2,
-                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(5689),
+                            CreatedDate = new DateTime(2023, 5, 23, 11, 23, 52, 462, DateTimeKind.Local).AddTicks(9132),
                             Description = "Ekran kartı fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.",
                             Name = "Ekran Kartı",
                             Status = (byte)1
@@ -487,7 +487,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = 1,
                             CategoryID = 1,
-                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7014),
+                            CreatedDate = new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(534),
                             Name = "AMD Ryzen™ 9 7950X3D Soket AM5 4.2GHz 128MB 120W 5nm İşlemci",
                             Price = 19.828m,
                             Status = (byte)1,
@@ -497,7 +497,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = 2,
                             CategoryID = 1,
-                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7021),
+                            CreatedDate = new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(541),
                             Name = "Intel Core i9 13900 Soket 1700 13.Nesil 2GHz 32MB Önbellek 10nm İşlemci",
                             Price = 17.334m,
                             Status = (byte)1,
@@ -507,7 +507,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = 3,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7024),
+                            CreatedDate = new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(543),
                             Name = "GIGABYTE GeForce RTX 3090 Ti GAMING 24GB GDDR6X 384Bit Nvidia Ekran Kartı",
                             Price = 64.304m,
                             Status = (byte)1,
@@ -517,7 +517,7 @@ namespace Project.DAL.Migrations
                         {
                             ID = 4,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2023, 5, 22, 18, 59, 15, 384, DateTimeKind.Local).AddTicks(7026),
+                            CreatedDate = new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(545),
                             Name = "MSI GeForce RTX 4090 SUPRIM X 24GB GDDR6X 384Bit DLSS 3 Ekran Kartı",
                             Price = 55.730m,
                             Status = (byte)1,
