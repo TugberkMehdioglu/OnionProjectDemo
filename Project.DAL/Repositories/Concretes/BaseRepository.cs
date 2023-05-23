@@ -76,7 +76,7 @@ namespace Project.DAL.Repositories.Concretes
 
         public T? FindByString(string id)
         {
-            return _context.Set<T>(id).Find(id);
+            return _context.Set<T>().Find(id);
         }
 
         public T? FindFirstData()
