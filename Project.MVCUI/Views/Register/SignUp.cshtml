@@ -1,0 +1,78 @@
+﻿@model AppUserWrapper
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+
+        <h2 class="text-center">Kullanıcı Kayıt Formu</h2>
+
+        @if (ViewBag.message != null)
+        {
+            <div class="alert alert-success">
+                @ViewBag.message
+            </div>
+        }
+
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <form method="post">
+
+            <div class="form-floating mb-3">
+                <input class="form-control" id="UserName" placeholder=" " asp-for="AppUser!.UserName">
+                <label for="UserName">Kullanıcı adı</label>
+                <span asp-validation-for="AppUser!.UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" id="Email" placeholder=" " asp-for="AppUser!.Email">
+                <label for="Email">Email</label>
+                <span asp-validation-for="AppUser!.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" id="PhoneNumber" placeholder=" " asp-for="AppUser!.PhoneNumber">
+                <label for="PhoPhoneNumberne">Telefon numarası</label>
+                <span asp-validation-for="AppUser!.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" id="PasswordHash" placeholder=" " asp-for="AppUser!.PasswordHash">
+                <label for="PasswordHash">Şifre</label>
+                <span asp-validation-for="AppUser!.PasswordHash" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" id="PasswordConfirm" placeholder=" " asp-for="AppUser!.PasswordConfirm">
+                <label for="PasswordConfirm">Şifre Tekrar</label>
+                <span asp-validation-for="AppUser!.PasswordConfirm" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" id="FirstName" placeholder=" " asp-for="AppUserProfile!.FirstName">
+                <label for="FirstName">İsim</label>
+                <span asp-validation-for="AppUserProfile!.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" id="LastName" placeholder=" " asp-for="AppUserProfile!.LastName">
+                <label for="LastName">Soyisim</label>
+                <span asp-validation-for="AppUserProfile!.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" id="Address" placeholder=" " asp-for="AppUserProfile!.Address">
+                <label for="Address">Adres</label>
+                <span asp-validation-for="AppUserProfile!.Address" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-outline-success">Kullanıcı Oluştur</button>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}
