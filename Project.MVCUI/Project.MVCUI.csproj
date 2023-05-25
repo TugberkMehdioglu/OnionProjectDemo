@@ -17,14 +17,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Project.BLL\Project.BLL.csproj" />
+    <ProjectReference Include="..\Project.COMMON\Project.COMMON.csproj" />
+    <ProjectReference Include="..\Project.DTO\Project.DTO.csproj" />
     <ProjectReference Include="..\Project.ENTITIES\Project.ENTITIES.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Models\ShoppingTools\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="OuterTools\" />
     <Folder Include="wwwroot\userPictures\" />
   </ItemGroup>
