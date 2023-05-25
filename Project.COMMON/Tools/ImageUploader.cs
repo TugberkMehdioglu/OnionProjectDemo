@@ -30,7 +30,7 @@ namespace Project.COMMON.Tools
                 entityImagePath = randomFileName;
                 return null;
             }
-            else return "Selected file is not a picture !";
+            else return "Selected file is not a picture !  Only jpg, gif, png and jpeg extensions are accepted.";
         }
     }
 }
