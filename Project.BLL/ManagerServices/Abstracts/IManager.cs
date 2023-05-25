@@ -17,14 +17,14 @@ namespace Project.BLL.ManagerServices.Abstracts
         IEnumerable<T> GetPassives();
 
         //Modify Commands
-        string Add(T entity);
-        string AddRange(ICollection<T> entities);
-        string Update(T entity);
-        string UpdateRange(ICollection<T> entities);
-        string Delete(T entity);
-        string DeleteRange(ICollection<T> entities);
-        string Destroy(T entity);
-        string DestroyRange(ICollection<T> entities);
+        (bool, string?) Add(T entity);
+        (bool, string?) AddRange(ICollection<T> entities);
+        (bool, string?) Update(T entity);
+        (bool, string?) UpdateRange(ICollection<T> entities);
+        (bool, string?) Delete(T entity);
+        (bool, string?) DeleteRange(ICollection<T> entities);
+        (bool, string?) Destroy(T entity);
+        (bool, string?) DestroyRange(ICollection<T> entities);
 
         //Expression Commands
         IEnumerable<T> Where(Expression<Func<T, bool>> expression);

@@ -20,9 +20,9 @@ namespace Project.BLL.ManagerServices.Concretes
             _repository = repository;
         }
 
-        public virtual string Add(T entity)
+        public virtual (bool, string?) Add(T entity)
         {
-            if (entity == null || entity.Status == DataStatus.Deleted) return "Lütfen zorunlu alanları doldurunuz";
+            if (entity == null || entity.Status == DataStatus.Deleted) return (false, "Lütfen zorunlu alanları doldurunuz");
 
             try
             {
@@ -30,14 +30,14 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             catch (Exception exception)
             {
-                return $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}";
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}");
             }
-            return "İşlem başarılı";
+            return (true, null);
         }
 
-        public virtual string AddRange(ICollection<T> entities)
+        public virtual (bool, string?) AddRange(ICollection<T> entities)
         {
-            if (entities == null || entities.Count < 1) return "Lütfen zorunlu alanları doldurunuz";
+            if (entities == null || entities.Count < 1) return (false, "Lütfen zorunlu alanları doldurunuz");
 
             try
             {
@@ -45,9 +45,9 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             catch (Exception exception)
             {
-                return $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}";
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}");
             }
-            return "İşlem başarılı";
+            return (true, null);
         }
 
         public virtual bool Any(Expression<Func<T, bool>> expression)
@@ -55,9 +55,9 @@ namespace Project.BLL.ManagerServices.Concretes
             return _repository.Any(expression);
         }
 
-        public virtual string Delete(T entity)
+        public virtual (bool, string?) Delete(T entity)
         {
-            if (entity == null || entity.Status == DataStatus.Deleted) return "Lütfen zorunlu alanları doldurunuz";
+            if (entity == null || entity.Status == DataStatus.Deleted) return (false, "Lütfen zorunlu alanları doldurunuz");
 
             try
             {
@@ -65,14 +65,14 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             catch (Exception exception)
             {
-                return $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}";
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}");
             }
-            return "İşlem başarılı";
+            return (true, null);
         }
 
-        public virtual string DeleteRange(ICollection<T> entities)
+        public virtual (bool, string?) DeleteRange(ICollection<T> entities)
         {
-            if (entities == null || entities.Count < 1) return "Lütfen zorunlu alanları doldurunuz";
+            if (entities == null || entities.Count < 1) return (false, "Lütfen zorunlu alanları doldurunuz");
 
             try
             {
@@ -80,14 +80,14 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             catch (Exception exception)
             {
-                return $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}";
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}");
             }
-            return "İşlem başarılı";
+            return (true, null);
         }
 
-        public virtual string Destroy(T entity)
+        public virtual (bool, string?) Destroy(T entity)
         {
-            if (entity == null) return "Lütfen zorunlu alanları doldurunuz";
+            if (entity == null) return (false, "Lütfen zorunlu alanları doldurunuz");
 
             try
             {
@@ -95,14 +95,14 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             catch (Exception exception)
             {
-                return $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}";
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}");
             }
-            return "İşlem başarılı";
+            return (true, null);
         }
 
-        public virtual string DestroyRange(ICollection<T> entities)
+        public virtual (bool, string?) DestroyRange(ICollection<T> entities)
         {
-            if (entities == null || entities.Count < 1) return "Lütfen zorunlu alanları doldurunuz";
+            if (entities == null || entities.Count < 1) return (false, "Lütfen zorunlu alanları doldurunuz");
 
             try
             {
@@ -110,9 +110,9 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             catch (Exception exception)
             {
-                return $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}";
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}");
             }
-            return "İşlem başarılı";
+            return (true, null);
         }
 
         public virtual T? Find(int id)
@@ -170,9 +170,9 @@ namespace Project.BLL.ManagerServices.Concretes
             return _repository.Select<X>(expression);
         }
 
-        public virtual string Update(T entity)
+        public virtual (bool, string?) Update(T entity)
         {
-            if (entity == null || entity.Status == DataStatus.Deleted) return "Lütfen zorunlu alanları doldurunuz";
+            if (entity == null || entity.Status == DataStatus.Deleted) return (false, "Lütfen zorunlu alanları doldurunuz");
 
             try
             {
@@ -180,14 +180,14 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             catch (Exception exception)
             {
-                return $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}";
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}");
             }
-            return "İşlem başarılı";
+            return (true, null);
         }
 
-        public virtual string UpdateRange(ICollection<T> entities)
+        public virtual (bool, string?) UpdateRange(ICollection<T> entities)
         {
-            if (entities == null || entities.Count < 1) return "Lütfen zorunlu alanları doldurunuz";
+            if (entities == null || entities.Count < 1) return (false, "Lütfen zorunlu alanları doldurunuz");
 
             try
             {
@@ -195,9 +195,9 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             catch (Exception exception)
             {
-                return $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}";
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}");
             }
-            return "İşlem başarılı";
+            return (true, null);
         }
 
         public virtual IEnumerable<T> Where(Expression<Func<T, bool>> expression)

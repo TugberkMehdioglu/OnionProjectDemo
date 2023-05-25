@@ -55,7 +55,8 @@ namespace Project.MVCUI.Controllers
             string message = $"Tebrikler, hesabınız oluşturulmuştur. Hesabınızı aktive etmek için https://localhost:7117/Register/Activation/{emailToken} linkine tıklayabilirsiniz.";
             MailService.SendMailAsync(request.AppUser!.Email, message, "Hesap aktivasyon | Onion Project");
 
-            _appUserProfileManager.Add(profile);
+            string result = _appUserProfileManager.Add(profile);
+            
 
             return View();
         }
