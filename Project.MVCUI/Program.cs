@@ -14,6 +14,21 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Home/SignIn";
+    options.LogoutPath = new PathString("/Member/Logout");
+
+    options.Cookie.Name = "DontTuchMe";
+    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+    options.SlidingExpiration = true;
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+
+    options.AccessDeniedPath = "/Member/AccessDenied";//UnAuthorized access
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
