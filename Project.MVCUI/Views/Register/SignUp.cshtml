@@ -10,9 +10,7 @@
 
         @if (ViewBag.message != null)
         {
-            <div class="alert alert-success">
-                @ViewBag.message
-            </div>
+            <partial name="_AlertSuccessPartial" model="ViewBag.message"></partial>
         }
 
         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
