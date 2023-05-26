@@ -1,5 +1,4 @@
-﻿@model AppUserWrapper
-
+﻿
 @{
     Layout = null;
 }
@@ -29,7 +28,7 @@
     <link rel="manifest" href="~/OuterTools/assets/img/favicons/manifest.json">
     <meta name="msapplication-TileImage" content="~/OuterTools/assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
-    <script src="~/OuterTools/assets/js/config.js"></script>
+    <script src=".~/OuterTools/assets/js/config.js"></script>
     <script src="~/OuterTools/vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
 
 
@@ -46,16 +45,16 @@
     <script>
         var isRTL = JSON.parse(localStorage.getItem('isRTL'));
         if (isRTL) {
-            var linkDefault = document.getElementById('style-default');
-            var userLinkDefault = document.getElementById('user-style-default');
-            linkDefault.setAttribute('disabled', true);
-            userLinkDefault.setAttribute('disabled', true);
-            document.querySelector('html').setAttribute('dir', 'rtl');
+          var linkDefault = document.getElementById('style-default');
+          var userLinkDefault = document.getElementById('user-style-default');
+          linkDefault.setAttribute('disabled', true);
+          userLinkDefault.setAttribute('disabled', true);
+          document.querySelector('html').setAttribute('dir', 'rtl');
         } else {
-            var linkRTL = document.getElementById('style-rtl');
-            var userLinkRTL = document.getElementById('user-style-rtl');
-            linkRTL.setAttribute('disabled', true);
-            userLinkRTL.setAttribute('disabled', true);
+          var linkRTL = document.getElementById('style-rtl');
+          var userLinkRTL = document.getElementById('user-style-rtl');
+          linkRTL.setAttribute('disabled', true);
+          userLinkRTL.setAttribute('disabled', true);
         }
     </script>
 </head>
@@ -70,14 +69,6 @@
         <div class="container-fluid">
             <div class="row min-vh-100 flex-center g-0">
                 <div class="col-lg-8 col-xxl-5 py-3 position-relative">
-
-                    @if (ViewBag.message != null)
-                    {
-                        <partial name="_AlertSuccessPartial" model="ViewBag.message"></partial>
-                    }
-
-                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
-
                     <img class="bg-auth-circle-shape" src="~/OuterTools/assets/img/icons/spot-illustrations/bg-shape.png" alt="" width="250"><img class="bg-auth-circle-shape-2" src="~/OuterTools/assets/img/icons/spot-illustrations/shape-1.png" alt="" width="150">
                     <div class="card overflow-hidden z-index-1">
                         <div class="card-body p-0">
@@ -94,63 +85,18 @@
                                         </div>
                                     </div>
                                     <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                                        <p class="pt-3 text-white">Zaten üye misin ?<br><a class="btn btn-outline-light mt-2 px-4" href="~/OuterTools/pages/authentication/card/login.html">Giriş Yap</a></p>
+                                        <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75"><a class="text-decoration-underline text-white" href="#!">KKVK Aydınlatma Metni</a> ve <a class="text-decoration-underline text-white" href="#!">Üyelik Sözleşmesi</a>'ni okuyabilirsin</p>
                                     </div>
                                 </div>
                                 <div class="col-md-7 d-flex flex-center">
                                     <div class="p-4 p-md-5 flex-grow-1">
-                                        <h3>Kayıt Ol</h3>
-                                        <form method="post">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="UserName">Kullanıcı Adı</label>
-                                                <input class="form-control" autocomplete="on" id="UserName" asp-for="AppUser!.UserName" />
-                                                <span asp-validation-for="AppUser!.UserName" class="text-danger"></span>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="Email">Email</label>
-                                                <input class="form-control" autocomplete="on" id="Email" type="text" asp-for="AppUser!.Email" />
-                                                <span asp-validation-for="AppUser!.Email" class="text-danger"></span>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="Cep">Cep No</label>
-                                                <input class="form-control" autocomplete="on" id="Cep" asp-for="AppUser!.PhoneNumber" />
-                                                <span asp-validation-for="AppUser!.PhoneNumber" class="text-danger"></span>
-                                            </div>
-                                            <div class="row gx-2">
-                                                <div class="mb-3 col-sm-6">
-                                                    <label class="form-label" for="password">Şifre</label>
-                                                    <input class="form-control" autocomplete="on" id="password" asp-for="AppUser!.PasswordHash" />
-                                                    <span asp-validation-for="AppUser!.PasswordHash" class="text-danger"></span>
-                                                </div>
-                                                <div class="mb-3 col-sm-6">
-                                                    <label class="form-label" for="PasswordConfirm">Şifre Tekrar</label>
-                                                    <input class="form-control" autocomplete="on" id="PasswordConfirm" asp-for="AppUser!.PasswordConfirm" />
-                                                    <span asp-validation-for="AppUser!.PasswordConfirm" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="FirstName">İsim</label>
-                                                <input class="form-control" autocomplete="on" id="FirstName" asp-for="AppUserProfile!.FirstName" />
-                                                <span asp-validation-for="AppUserProfile!.FirstName" class="text-danger"></span>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="LastName">Soyisim</label>
-                                                <input class="form-control" autocomplete="on" id="LastName" asp-for="AppUserProfile!.LastName" />
-                                                <span asp-validation-for="AppUserProfile!.LastName" class="text-danger"></span>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="Address">Adres</label>
-                                                <input class="form-control" autocomplete="on" id="Address" asp-for="AppUserProfile!.Address" />
-                                                <span asp-validation-for="AppUserProfile!.Address" class="text-danger"></span>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="required"/>
-                                                <label class="form-label" for="required"><a href="#!">KKVK Aydınlatma Metni</a>'ni ve <a href="#!">Üyelik Sözleşmesi</a>'ni okudum, onaylıyorum.</label>
-                                            </div>
-                                            <div class="mb-3">
-                                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Üye Ol</button>
-                                            </div>
-                                        </form>
+                                        <div class="text-center">
+                                            <img class="d-block mx-auto mb-4" src="~/OuterTools/assets/img/icons/spot-illustrations/16.png" alt="Email" width="100" />
+                                            <h3 class="mb-2">Üyeliğiniz oluşturuldu, mail'lerini kontrol et!</h3>
+                                            <p>
+                                                <strong>@ViewBag.email</strong> adresine aktivasyon mail'i gönderdik. <br class="d-none d-sm-block d-md-none" />Mail'deki linke tıklayarak eposta adresini onaylayabilirsin.
+                                            </p><a class="btn btn-primary btn-sm mt-3" href="~/OuterTools/pages/authentication/card/login.html"><span class="fas fa-chevron-left me-1" data-fa-transform="shrink-4 down-1"></span>Giriş sayfasına dön</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -193,14 +139,14 @@
                 <div class="d-flex align-items-start">
                     <img class="me-2" src="~/OuterTools/assets/img/icons/left-arrow-from-left.svg" width="20" alt="" />
                     <div class="flex-1">
-                        <h5 class="fs-0">RTL Mode</h5>
+                        <h5 class="fs-0">RTL Modu</h5>
                         <p class="fs--1 mb-0">Diline göre yazı yönünü belirle </p>
                     </div>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input ms-0" id="mode-rtl" type="checkbox" data-theme-control="isRTL" />
                 </div>
-            </div>                   
+            </div>
         </div>
     </div>
     <a class="card setting-toggle" href="#settings-offcanvas" data-bs-toggle="offcanvas">
@@ -235,10 +181,6 @@
     <script src="~/OuterTools/vendors/list.js/list.min.js"></script>
     <script src="~/OuterTools/assets/js/theme.js"></script>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>
 
 </html>
-

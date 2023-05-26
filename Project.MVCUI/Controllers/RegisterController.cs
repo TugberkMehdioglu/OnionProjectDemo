@@ -69,6 +69,12 @@ namespace Project.MVCUI.Controllers
             }
 
             ViewBag.message = "Üyeliğiniz oluşturulmuştur, üyelik işlemlerini tamamlamak için mail adresinize yolladığımız talimatları izleyiniz";
+            return RedirectToAction(nameof(RegisterOk), "Register", new { email = user.Email });
+        }
+
+        public IActionResult RegisterOk(string email)
+        {
+            ViewBag.email = email;
             return View();
         }
 
