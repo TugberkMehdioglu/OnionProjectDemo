@@ -83,18 +83,21 @@ namespace Project.MVCUI.Controllers
             AppUser user = await _userManager.FindByIdAsync(userId);
             if(user == null)
             {
-                ModelState.AddModelErrorWithOutKey("Kullanıcı bulunamadı");
+                ViewBag.message = "Kullanıcı bulunamadı";
                 return View();
             }
 
             IdentityResult result = await _userManager.ConfirmEmailAsync(user, token);
             if (!result.Succeeded)
             {
-                ModelState.AddModelErrorListWithOutKey(result.Errors);
+                foreach (IdentityError error in result.Errors)
+                {
+                    ViewBag.message += $"{error}\n ";
+                }
                 return View();
             }
             
-            ViewBag.success = "Email onaylama başarılı";
+            ViewBag.message = "Mail adresiniz başarıyla aktive edilmiştir!";
             return View();
         }
     }

@@ -64,6 +64,7 @@ namespace Project.MVCUI.Controllers
             if(!await _userManager.IsEmailConfirmedAsync(user))
             {
                 ModelState.AddModelErrorWithOutKey("Lütfen hesabınızı aktif hale getiriniz, mail'lerinizi kontrol ediniz");
+                await _signInManager.SignOutAsync();//So that the cookie still does not remain in the browser
                 return View();
             }
 
