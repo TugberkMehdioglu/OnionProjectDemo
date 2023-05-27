@@ -13,9 +13,25 @@ namespace Project.MVCUI.Extensions
             }
         }
 
+        public static void AddModelErrorListWithOutKey(this ModelStateDictionary modelState, IEnumerable<string> errors)
+        {
+            foreach(string error in errors)
+            {
+                modelState.AddModelError(string.Empty, error);
+            }
+        }
+
         public static void AddModelErrorWithOutKey(this ModelStateDictionary modelState, string error)
         {
             modelState.AddModelError(string.Empty, error);
+        }
+
+        public static void AddModelErrorWithOutKey(this ModelStateDictionary modelState, params string[] errors)
+        {
+            foreach (string error in errors)
+            {
+                modelState.AddModelError(string.Empty, error);
+            }
         }
     }
 }

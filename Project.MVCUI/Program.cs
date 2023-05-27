@@ -16,7 +16,7 @@ builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Home/SignIn";
+    options.LoginPath = "/Home/Login";
     options.LogoutPath = new PathString("/Member/Logout");
 
     options.Cookie.Name = "DontTuchMe";
