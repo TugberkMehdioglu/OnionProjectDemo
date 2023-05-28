@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project.BLL.ManagerServices.Abstracts;
+using Project.COMMON.Extensions;
 using Project.ENTITIES.Models;
 using Project.MVCUI.Extensions;
 using Project.MVCUI.ViewModels;
@@ -15,12 +16,14 @@ namespace Project.MVCUI.Controllers
         private readonly IAppUserManager _appUserManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IAppUserProfileManager _appUserProfileManager;
 
-        public HomeController(IAppUserManager appUserManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public HomeController(IAppUserManager appUserManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserProfileManager appUserProfileManager)
         {
             _appUserManager = appUserManager;
             _userManager = userManager;
             _signInManager = signInManager;
+            _appUserProfileManager = appUserProfileManager;
         }
 
         [Route("/")]
@@ -67,6 +70,14 @@ namespace Project.MVCUI.Controllers
                 await _signInManager.SignOutAsync();//So that the cookie still does not remain in the browser
                 return View();
             }
+
+            //AppUserProfile? userProfile = _appUserProfileManager.FindByString(user.Id);
+            //if (userProfile != null)
+            //{
+            //    SessionViewModel session = new SessionViewModel() { ImagePath = userProfile.ImagePath };
+            //    HttpContext.Session.SetSession("sessionVM", session);
+            //}
+
 
             return Redirect(returnUrl!);
         }
