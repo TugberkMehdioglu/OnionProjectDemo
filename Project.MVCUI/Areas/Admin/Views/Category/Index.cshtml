@@ -1,7 +1,54 @@
-﻿
+﻿@model CategoryWrapper
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="row flex-between-end">
+            <div class="col-auto align-self-center">
+                <h3 class="mb-0" data-anchor="data-anchor">Kategoriler</h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body pt-0">
+        <div class="tab-content">
+            <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-55d552bf-cdbd-40f9-856d-410188578fda" id="dom-55d552bf-cdbd-40f9-856d-410188578fda">
+                <div id="tableExample2" data-list='{"valueNames":["name","description"],"page":5,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort text-center" data-sort="name">Ad</th>
+                                    <th class="sort text-center" data-sort="description">Açıklama</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @foreach (CategoryViewModel item in Model.Categories!)
+                                {
+                                    <tr>
+                                        <td class="name text-center">@item.Name</td>
+                                        <td class="description text-center">@(item.Description ?? "Açıklaması Yok")</td>
+                                    </tr>
 
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                        <ul class="pagination mb-0"></ul>
+                        <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/OuterTools/vendors/prism/prism.js"></script>
+}
+
+@section Css{
+    <link href="../../vendors/prism/prism-okaidia.css" rel="stylesheet">
+}
