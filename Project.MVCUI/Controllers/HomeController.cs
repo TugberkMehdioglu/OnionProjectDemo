@@ -92,5 +92,10 @@ namespace Project.MVCUI.Controllers
         {
             return View();
         }
+
+        public async Task LogOut()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }

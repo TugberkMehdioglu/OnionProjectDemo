@@ -28,7 +28,7 @@ builder.Services.AddSession(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Home/Login";
-    options.LogoutPath = new PathString("/Member/Logout");
+    options.LogoutPath = new PathString("/Home/LogOut");
 
     options.Cookie.Name = "DontTuchMe";
     options.ExpireTimeSpan = TimeSpan.FromDays(30);
