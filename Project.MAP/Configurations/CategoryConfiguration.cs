@@ -31,6 +31,46 @@ namespace Project.MAP.Configurations
                     Status=ENTITIES.Enums.DataStatus.Inserted,
                     Name="Ekran Kartı",
                     Description="Ekran kartı fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın."
+                },
+                new()
+                {
+                    ID = 3,
+                    CreatedDate = DateTime.Now,
+                    Status=ENTITIES.Enums.DataStatus.Inserted,
+                    Name="Anakart",
+                    Description="Anakart fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın."
+                },
+                new()
+                {
+                    ID = 4,
+                    CreatedDate = DateTime.Now,
+                    Status=ENTITIES.Enums.DataStatus.Inserted,
+                    Name="Monitör",
+                    Description="Monitör fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın."
+                },
+                new()
+                {
+                    ID = 5,
+                    CreatedDate = DateTime.Now,
+                    Status=ENTITIES.Enums.DataStatus.Inserted,
+                    Name="SSD",
+                    Description="SSD fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın."
+                },
+                new()
+                {
+                    ID = 6,
+                    CreatedDate = DateTime.Now,
+                    Status=ENTITIES.Enums.DataStatus.Inserted,
+                    Name="Harici Disk",
+                    Description="Harici Disk fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın."
+                },
+                new()
+                {
+                    ID = 7,
+                    CreatedDate = DateTime.Now,
+                    Status=ENTITIES.Enums.DataStatus.Inserted,
+                    Name="Bilgisayar Kasası",
+                    Description="Bilgisayar Kasası fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın."
                 }
             };
 

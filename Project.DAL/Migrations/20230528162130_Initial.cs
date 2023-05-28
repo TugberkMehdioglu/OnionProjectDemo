@@ -286,26 +286,31 @@ namespace Project.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4d7b3bc1-f3aa-48ce-b587-5e7dc5557634", "ba904b65-65a8-465b-9b1f-0fe12ddb6dfa", "Admin", "ADMIN" });
+                values: new object[] { "4d7b3bc1-f3aa-48ce-b587-5e7dc5557634", "5fba40f9-39cf-4bcb-93d2-f18bd388b123", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedDate", "DeletedDate", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "ModifiedDate", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "5c8defd5-91f2-4256-9f16-e7fa7546dec4", 0, "14a7efd8-0120-4bb6-a2bf-92569cf85908", new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(9150), null, "Admin@gmail.com", false, true, null, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEMrnRuzDiab8mAl0/xPsTgllJfu/aRvS+MTiRX4Hw0kMTySw6SuM6P/hqpRWyX0q6Q==", "05316453125", false, "f0d3b846-e845-482b-95c4-d1897c86ad88", (byte)1, false, "Admin" });
+                values: new object[] { "5c8defd5-91f2-4256-9f16-e7fa7546dec4", 0, "2b72ae12-208b-404b-afca-a056958a53ad", new DateTime(2023, 5, 28, 19, 21, 30, 88, DateTimeKind.Local).AddTicks(2030), null, "Admin@gmail.com", false, true, null, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEJ2/KEUvVFsa7eGRDzUqtl1sOEXEZBjKOfPBAuYe1wkekTwrBlryLBjS1mnO+Ly6uA==", "05316453125", false, "83c26535-6e7a-4baa-bc56-9430d0fe9724", (byte)1, false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "ID", "CreatedDate", "DeletedDate", "Description", "ModifiedDate", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 5, 23, 11, 23, 52, 462, DateTimeKind.Local).AddTicks(9128), null, "İşlemci fiyatları, modelleri ve güvenilir işlemci markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "İşlemci", (byte)1 },
-                    { 2, new DateTime(2023, 5, 23, 11, 23, 52, 462, DateTimeKind.Local).AddTicks(9132), null, "Ekran kartı fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "Ekran Kartı", (byte)1 }
+                    { 1, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(2419), null, "İşlemci fiyatları, modelleri ve güvenilir işlemci markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "İşlemci", (byte)1 },
+                    { 2, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(2424), null, "Ekran kartı fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "Ekran Kartı", (byte)1 },
+                    { 3, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(2426), null, "Anakart fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "Anakart", (byte)1 },
+                    { 4, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(2427), null, "Monitör fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "Monitör", (byte)1 },
+                    { 5, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(2432), null, "SSD fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "SSD", (byte)1 },
+                    { 6, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(2433), null, "Harici Disk fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "Harici Disk", (byte)1 },
+                    { 7, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(2434), null, "Bilgisayar Kasası fiyatları, modelleri ve güvenilir ekran kartı markaları uygun ödeme seçenekleriyle şimdi inceleyin ve hemen satın alın.", null, "Bilgisayar Kasası", (byte)1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "AppUserProfiles",
                 columns: new[] { "ID", "Address", "CreatedDate", "DeletedDate", "FirstName", "ImagePath", "LastName", "ModifiedDate", "Status" },
-                values: new object[] { "5c8defd5-91f2-4256-9f16-e7fa7546dec4", "Yiğidin harman olduğu yer", new DateTime(2023, 5, 23, 11, 23, 52, 462, DateTimeKind.Local).AddTicks(8926), null, "Tuğberk", null, "Mehdioğlu", null, (byte)1 });
+                values: new object[] { "5c8defd5-91f2-4256-9f16-e7fa7546dec4", "Yiğidin harman olduğu yer", new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(2287), null, "Tuğberk", null, "Mehdioğlu", null, (byte)1 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -317,10 +322,10 @@ namespace Project.DAL.Migrations
                 columns: new[] { "ID", "CategoryID", "CreatedDate", "DeletedDate", "ImagePath", "ModifiedDate", "Name", "Price", "Status", "Stock" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(534), null, null, null, "AMD Ryzen™ 9 7950X3D Soket AM5 4.2GHz 128MB 120W 5nm İşlemci", 19.828m, (byte)1, (short)100 },
-                    { 2, 1, new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(541), null, null, null, "Intel Core i9 13900 Soket 1700 13.Nesil 2GHz 32MB Önbellek 10nm İşlemci", 17.334m, (byte)1, (short)100 },
-                    { 3, 2, new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(543), null, null, null, "GIGABYTE GeForce RTX 3090 Ti GAMING 24GB GDDR6X 384Bit Nvidia Ekran Kartı", 64.304m, (byte)1, (short)100 },
-                    { 4, 2, new DateTime(2023, 5, 23, 11, 23, 52, 463, DateTimeKind.Local).AddTicks(545), null, null, null, "MSI GeForce RTX 4090 SUPRIM X 24GB GDDR6X 384Bit DLSS 3 Ekran Kartı", 55.730m, (byte)1, (short)100 }
+                    { 1, 1, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(3705), null, null, null, "AMD Ryzen™ 9 7950X3D Soket AM5 4.2GHz 128MB 120W 5nm İşlemci", 19.828m, (byte)1, (short)100 },
+                    { 2, 1, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(3711), null, null, null, "Intel Core i9 13900 Soket 1700 13.Nesil 2GHz 32MB Önbellek 10nm İşlemci", 17.334m, (byte)1, (short)100 },
+                    { 3, 2, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(3714), null, null, null, "GIGABYTE GeForce RTX 3090 Ti GAMING 24GB GDDR6X 384Bit Nvidia Ekran Kartı", 64.304m, (byte)1, (short)100 },
+                    { 4, 2, new DateTime(2023, 5, 28, 19, 21, 30, 87, DateTimeKind.Local).AddTicks(3715), null, null, null, "MSI GeForce RTX 4090 SUPRIM X 24GB GDDR6X 384Bit DLSS 3 Ekran Kartı", 55.730m, (byte)1, (short)100 }
                 });
 
             migrationBuilder.CreateIndex(
