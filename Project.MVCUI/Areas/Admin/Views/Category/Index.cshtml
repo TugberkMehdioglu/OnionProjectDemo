@@ -21,6 +21,7 @@
                                 <tr>
                                     <th class="sort text-center" data-sort="name">Ad</th>
                                     <th class="sort text-center" data-sort="description">Açıklama</th>
+                                    <th class="text-end" scope="col">İşlemler</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -29,8 +30,19 @@
                                     <tr>
                                         <td class="name text-center">@item.Name</td>
                                         <td class="description text-center">@(item.Description ?? "Açıklaması Yok")</td>
-                                    </tr>
+                                        <td class="text-end">
+                                            <div>
+                                                <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID">
+                                                    <button class="btn p-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"></span></button>
+                                                </a>
 
+                                                <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"></span></a>
+
+                                                <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="text-500 fas fa-trash-alt"></span></a>
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

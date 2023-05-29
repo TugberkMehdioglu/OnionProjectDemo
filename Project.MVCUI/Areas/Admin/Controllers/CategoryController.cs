@@ -68,6 +68,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index), "Category", new { Area = "Admin" });
         }
 
+        [HttpGet("{id}")]
         public IActionResult UpdateCategory(int id)
         {
             Category? category=_categoryManager.Find(id);
@@ -76,7 +77,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             return View(_mapper.Map<CategoryViewModel>(category));
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateCategory(CategoryViewModel request)
         {
