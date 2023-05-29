@@ -1,10 +1,9 @@
-﻿@using Project.COMMON.Extensions;
-@using Project.MVCUI.ViewModels;
+﻿@using Project.MVCUI.ViewModels;
+@using Project.MVCUI.Extensions;
 
-@*@{
-    SessionViewModel? sessionUser = new SessionViewModel();
-    sessionUser = Context.Session.GetSession<SessionViewModel>("sessionVM");
-}*@
+@{
+    SessionViewModel? sessionUser = Context.Session.GetSession<SessionViewModel>("sessionVM");
+}
 
 @if(User.Identity!.IsAuthenticated)
 {
@@ -23,7 +22,8 @@
                     <img class="rounded-circle" src="~/userpictures/empty-profile-pic.JPG" alt="" />
                 }*@
 
-                @User.Identity!.Name
+                @*@User.Identity!.Name*@
+                <img class="rounded-circle" src="~/userpictures/empty-profile-pic.JPG" alt="" />
                 
             </div>
         </a>

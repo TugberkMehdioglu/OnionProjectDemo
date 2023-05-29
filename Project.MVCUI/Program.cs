@@ -16,13 +16,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromDays(20);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-    options.Cookie.Name = "DonTuchMe:)";
-});
+
 
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -40,7 +34,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 
-
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.Cookie.Name = "DonTuchMe:)";
+});
 
 var app = builder.Build();
 
@@ -52,14 +52,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseSession();
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 

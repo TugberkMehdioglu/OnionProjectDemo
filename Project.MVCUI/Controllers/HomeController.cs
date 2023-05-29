@@ -76,6 +76,7 @@ namespace Project.MVCUI.Controllers
             //{
             //    SessionViewModel session = new SessionViewModel() { ImagePath = userProfile.ImagePath };
             //    HttpContext.Session.SetSession("sessionVM", session);
+            //    SessionViewModel? model = HttpContext.Session.GetSession<SessionViewModel>("sessionVM");
             //}
 
 
