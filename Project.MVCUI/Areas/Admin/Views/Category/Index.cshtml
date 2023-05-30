@@ -3,6 +3,16 @@
     ViewData["Title"] = "Index";
 }
 
+@if (TempData["success"] != null)
+{
+    <div class="col-8 offset-2">
+        <partial name="_AlertSuccessPartial" model=@(TempData["success"]!.ToString())></partial>
+    </div>
+}
+
+<div class="col-8 offset-2" style="visibility:hidden; font-weight:bold;" id="ajaxDiv">
+</div>
+
 <div class="card mb-3">
     <div class="card-header">
         <div class="row flex-between-end">
@@ -16,7 +26,7 @@
             <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-55d552bf-cdbd-40f9-856d-410188578fda" id="dom-55d552bf-cdbd-40f9-856d-410188578fda">
                 <div id="tableExample2" data-list='{"valueNames":["name","description"],"page":5,"pagination":true}'>
                     <div class="table-responsive scrollbar">
-                        <table class="table table-hover table-striped fs--1 mb-0">
+                        <table class="table table-hover table-striped fs--1 mb-0" id="myTable">
                             <thead class="bg-200 text-900 align-middle">
                                 <tr>
                                     <th class="sort text-center" data-sort="name">Ad</th>
@@ -34,8 +44,8 @@
                                             <div>
                                                 <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-500 fas fa-edit"></span></a>
 
-                                                <a asp-area="Admin" asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@item.ID" class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-500 fas fa-trash-alt"></span></a>
-                                                
+                                                <a id="deleteCategoryId" data-id="@item.ID" class="btn p-0 ms-2" data-bs-toggle="modal" data-bs-target="#modal5" data-bs-placement="top" title="Sil"><span class="text-500 fas fa-trash-alt"></span></a>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -53,10 +63,83 @@
         </div>
     </div>
 </div>
+
+@*------------MODAL------------*@
+<div class="modal fade" id="modal5" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Kategori silinsin mi?</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Mevcut kategoriyi silmek istediğinize emin misiniz?
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" id="closeModal">Kapat</button>
+                <button type="submit" class="btn btn-danger" id="deleteCategoryButton" data-bs-dismiss="modal">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*------------MODAL------------*@
+
 @section Scripts{
     <script src="~/OuterTools/vendors/prism/prism.js"></script>
+
 }
 
 @section Css{
     <link href="~/OuterTools/vendors/prism/prism-okaidia.css" rel="stylesheet">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 }
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#myTable").on("click", "#deleteCategoryId", function(){
+
+            let id = $(this).data("id");
+            let actionTag=$(this);
+
+            // Önceki tıklamalar için kaydedilen olayları temizleyin
+            $("#deleteCategoryButton").off("click");
+            //Önerimdeki $("#deleteCategoryButton").off("click.deleteCategory") kullanımı, sadece belirli bir olayın (.deleteCategory) kaldırılmasını sağlamak için daha spesifik bir şekilde olayları yönetmek içindi. Ancak, $("#deleteCategoryButton").off("click") kullanarak tüm click olaylarını kaldırmanız da aynı sonucu verecektir.
+
+            $("#deleteCategoryButton").click(function(){
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "/Admin/Category/DeleteCategory/" + id,
+                    success: function (data) {
+
+                        actionTag.parent().parent().parent().remove();
+                        var myDiv = document.getElementById("ajaxDiv");
+                        myDiv.setAttribute("class" ,"alert alert-info text-center");
+                        myDiv.setAttribute("style", "visibility:visible;");                     
+                        myDiv.innerHTML = data.message;
+                        setTimeout(function(){
+
+                            myDiv.setAttribute("style", "visibility:hidden;")
+                        }, 5000);
+                    },
+                    error: function (error) {
+
+                        actionTag.parent().parent().parent().remove();
+                        var myDiv = document.getElementById("ajaxDiv");
+                        myDiv.setAttribute("class", "alert alert-info text-center");
+                        myDiv.setAttribute("style", "visibility:visible;");
+                        myDiv.innerHTML = data.message;
+                        setTimeout(function () {
+
+                            myDiv.setAttribute("style", "visibility:hidden;")
+                        }, 5000);
+                    }
+                });
+            });      
+        });
+    });
+
+</script>

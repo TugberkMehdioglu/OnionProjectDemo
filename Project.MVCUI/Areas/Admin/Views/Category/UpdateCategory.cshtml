@@ -1,13 +1,10 @@
 ﻿@model CategoryViewModel
 
 @{
-    ViewData["Title"] = "AddCategory";
+    ViewData["Title"] = "UpdateCategory";
 }
 
 <div class="card mb-3 col-8 offset-2">
-
-    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
-
     <div class="card-header">
         <div class="row flex-between-end">
             <div class=" text-center align-self-center">
@@ -30,7 +27,7 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                        <button class="btn btn-outline-primary" type="submit">Oluştur</button>
+                        <button class="btn btn-outline-warning" type="submit">Güncelle</button>
                     </div>
                 </form>
             </div>

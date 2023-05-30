@@ -59,6 +59,12 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(request);
 
+            if (_categoryManager.Any(x => x.Name == request.Name && x.Status != DataStatus.Deleted)) 
+            {
+                ModelState.AddModelErrorWithOutKey("Oluşturmaya çalıştığınız kategori zaten bulunmaktadır!");
+                return View();
+            }
+
             var (isSuccess, error) = _categoryManager.Add(_mapper.Map<Category>(request));
             if(error != null)
             {
@@ -100,12 +106,11 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         public IActionResult DeleteCategory(int id)
         {
             Category? category = _categoryManager.Find(id);
-            if (category == null) return RedirectToAction(nameof(Index), "Category", new { Area = "Admin" });
+            if (category == null) return Json(new { message = "Kategori bulunamadı!" });
 
             _categoryManager.Delete(category);
 
-            TempData["success"] = "Kategori başarıyla silindi";
-            return RedirectToAction(nameof(Index), "Category", new { Area = "Admin" });
+            return Json(new { message = "Kategori başarıyla silindi" });
         }
     }
 }
