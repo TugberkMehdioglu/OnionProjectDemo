@@ -30,7 +30,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 
-    options.AccessDeniedPath = "/Member/AccessDenied";//UnAuthorized access
+    options.AccessDeniedPath = "/Home/AccessDenied";//UnAuthorized access
 });
 
 

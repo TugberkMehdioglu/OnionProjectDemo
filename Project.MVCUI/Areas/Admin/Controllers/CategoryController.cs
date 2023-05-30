@@ -92,6 +92,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index), "Category", new { Area = "Admin" });
         }
 
+        [HttpGet("{id}")]
         public IActionResult DeleteCategory(int id)
         {
             Category? category = _categoryManager.Find(id);

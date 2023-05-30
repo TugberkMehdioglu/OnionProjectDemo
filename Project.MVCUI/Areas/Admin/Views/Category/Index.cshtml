@@ -17,11 +17,11 @@
                 <div id="tableExample2" data-list='{"valueNames":["name","description"],"page":5,"pagination":true}'>
                     <div class="table-responsive scrollbar">
                         <table class="table table-hover table-striped fs--1 mb-0">
-                            <thead class="bg-200 text-900">
+                            <thead class="bg-200 text-900 align-middle">
                                 <tr>
                                     <th class="sort text-center" data-sort="name">Ad</th>
                                     <th class="sort text-center" data-sort="description">Açıklama</th>
-                                    <th class="text-end" scope="col">İşlemler</th>
+                                    <th class="text-center" scope="col"><a class="btn btn-outline-success">Kategori Oluştur</a></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -30,15 +30,11 @@
                                     <tr>
                                         <td class="name text-center">@item.Name</td>
                                         <td class="description text-center">@(item.Description ?? "Açıklaması Yok")</td>
-                                        <td class="text-end">
+                                        <td class="text-center">
                                             <div>
-                                                <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID">
-                                                    <button class="btn p-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"></span></button>
-                                                </a>
+                                                <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-500 fas fa-edit"></span></a>
 
-                                                <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="text-500 fas fa-edit"></span></a>
-
-                                                <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="text-500 fas fa-trash-alt"></span></a>
+                                                <a asp-area="Admin" asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@item.ID" class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-500 fas fa-trash-alt"></span></a>
                                                 
                                             </div>
                                         </td>
