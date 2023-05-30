@@ -57,6 +57,8 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddCategory(CategoryViewModel request)
         {
+            if (!ModelState.IsValid) return View(request);
+
             var (isSuccess, error) = _categoryManager.Add(_mapper.Map<Category>(request));
             if(error != null)
             {
@@ -81,6 +83,8 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult UpdateCategory(CategoryViewModel request)
         {
+            if(!ModelState.IsValid) return View(request);
+
             var (isSuccess, error) = _categoryManager.Update(_mapper.Map<Category>(request));
             if(error != null )
             {
