@@ -5,6 +5,7 @@ using Project.ENTITIES.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@ namespace Project.DAL.Repositories.Concretes
         {
         }
 
-        public List<Product> GetActivesWithCategories() => _context.Products!.Include(x => x.Category).ToList();
+        public List<Product> GetActivesWithCategories() => _context.Products!.Where(x => x.Status != ENTITIES.Enums.DataStatus.Deleted).Include(x => x.Category).ToList();
+
+        public List<Product> GetProductsWithCategories(Expression<Func<Product, bool>> whereExpression) => _context.Products!.Where(whereExpression).Include(x => x.Category).ToList();
     }
 }

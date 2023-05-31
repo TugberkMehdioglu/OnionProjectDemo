@@ -34,10 +34,23 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             _fileProvider = fileProvider;
         }
 
-
-        public IActionResult Index()
+        [HttpGet("{id?}")]
+        public IActionResult Index(int? id)
         {
-            var (isSuccess, error, products) = _productManager.GetProductsWithCategories();
+            if(id != null)
+            {
+                var (Success, error1, products1) = _productManager.GetProductsWithCategories(x => x.CategoryID == id);
+                if (Success == false)
+                {
+                    ModelState.AddModelErrorWithOutKey(error1!);
+                    return View();
+                }
+
+                HashSet<ProductViewModel> viewModels = _mapper.Map<HashSet<ProductViewModel>>(products1);
+                return View(viewModels);
+            }
+
+            var (isSuccess, error, products) = _productManager.GetActivesWithCategories();
             if(isSuccess == false)
             {
                 ModelState.AddModelErrorWithOutKey(error!);

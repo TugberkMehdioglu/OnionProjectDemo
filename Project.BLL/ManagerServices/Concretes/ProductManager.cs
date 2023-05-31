@@ -5,6 +5,7 @@ using Project.ENTITIES.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,13 +19,28 @@ namespace Project.BLL.ManagerServices.Concretes
             _productRepository = productRepository;
         }
 
-        public (bool, string?, List<Product>?) GetProductsWithCategories() 
+        public (bool, string?, List<Product>?) GetActivesWithCategories() 
         {
             List<Product> products;
 
             try
             {
                 products = _productRepository.GetActivesWithCategories();
+            }
+            catch (Exception exception)
+            {
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}", null);
+            }
+            return (true, null, products);
+        }
+
+        public (bool, string?, List<Product>?) GetProductsWithCategories(Expression<Func<Product, bool>> whereExpression)
+        {
+            List<Product> products;
+
+            try
+            {
+                products = _productRepository.GetProductsWithCategories(whereExpression);
             }
             catch (Exception exception)
             {
