@@ -1,0 +1,183 @@
+﻿@model HashSet<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (TempData["success"] != null)
+{
+    <div class="col-8 offset-2">
+        <partial name="_AlertSuccessPartial" model=@(TempData["success"]!.ToString())></partial>
+    </div>
+}
+
+<div class="col-8 offset-2" style="visibility:hidden; font-weight:bold;" id="ajaxDiv">
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="row flex-between-end">
+            <div class=" text-center align-self-center">
+                <h3 class="mb-0">Ürünler</h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body pt-0">
+        <div class="tab-content">
+            <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-55d552bf-cdbd-40f9-856d-410188578fda" id="dom-55d552bf-cdbd-40f9-856d-410188578fda">
+                <div id="tableExample2" data-list='{"valueNames":["image","name","price","category","stock"],"page":5,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-hover table-striped fs--1 mb-0" id="myTable">
+                            <thead class="bg-200 text-900 align-middle">
+                                <tr>
+                                    <th class="sort text-center" data-sort="image">Resim</th>
+                                    <th class="sort text-center" data-sort="name">Ad</th>
+                                    <th class="sort text-center" data-sort="price">Fiyat</th>
+                                    <th class="sort text-center" data-sort="category">Kategorisi</th>
+                                    <th class="sort text-center" data-sort="stock">Stok</th>
+                                    <th class="text-center" scope="col"><a class="btn btn-outline-success" asp-area="Admin" asp-controller="Product" asp-action="Create">Ürün Oluştur</a></th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @foreach (ProductViewModel item in Model)
+                                {
+                                    <tr class="align-middle">
+                                        <td class="image text-center">
+                                            @if(item.ImagePath != null)
+                                            {
+                                                <img src="~/userpictures/@(item.ImagePath!)" alt="Resim Görüntülenemiyor" style="height:200px; width:200px;"/>
+                                            }
+                                            else
+                                            {
+                                                <img class="rounded-circle" src="~/productPictures/no-image-icon.png" alt="Resim Görüntülenemiyor" style="height:100px; width:100px;" />
+                                            }
+                                        </td>
+                                        <td class="name text-center">@item.Name</td>
+                                        <td class="price text-center">@item.Price.ToString("C2")</td>
+                                        <td class="category text-center">@item.Category!.Name</td>
+                                        <td class="stock text-center">@item.Stock Adet</td>
+                                        <td class="text-center">
+                                            <div>
+                                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-500 fas fa-edit"></span></a>
+
+                                                <span id="deleteCategoryId" data-id="@item.ID" data-bs-toggle="modal" data-bs-target="#modal5">
+                                                    <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-500 fas fa-trash-alt"></span></a>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                        <ul class="pagination mb-0"></ul>
+                        <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*------------MODAL------------*@
+<div class="modal fade" id="modal5" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Kategori silinsin mi?</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Mevcut kategoriyi silmek istediğinize emin misiniz?
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" id="closeModal">Kapat</button>
+                <button type="submit" class="btn btn-danger" id="deleteCategoryButton" data-bs-dismiss="modal">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*------------MODAL------------*@
+
+@section Scripts{
+    <script src="~/OuterTools/vendors/prism/prism.js"></script>
+
+}
+
+@section Css{
+    <link href="~/OuterTools/vendors/prism/prism-okaidia.css" rel="stylesheet">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#myTable").on("click", "#deleteCategoryId", function () {
+
+            let id = $(this).data("id");
+            let spanTag = $(this);
+
+            // Önceki tıklamalar için kaydedilen olayları temizleyin
+            $("#deleteCategoryButton").off("click");
+            //Önerimdeki $("#deleteCategoryButton").off("click.deleteCategory") kullanımı, sadece belirli bir olayın (.deleteCategory) kaldırılmasını sağlamak için daha spesifik bir şekilde olayları yönetmek içindi. Ancak, $("#deleteCategoryButton").off("click") kullanarak tüm click olaylarını kaldırmanız da aynı sonucu verecektir.
+
+            $("#deleteCategoryButton").click(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "/Admin/Product/Delete/" + id,
+                    success: function (data) {
+
+                        spanTag.parent().parent().parent().remove();
+                        successAlert(data.message);
+                    },
+                    error: function (error) {
+
+                        spanTag.parent().parent().parent().remove();
+                        successAlert(data.message);
+                    }
+                });
+            });
+        });
+    });
+
+
+    function successAlert(message) {
+
+        var alertDiv = $('<div></div>').addClass('alert alert-success d-flex align-items-center alert-dismissible fade show');
+        var svgIcon = $('<svg></svg>').attr({
+            xmlns: 'http://www.w3.org/2000/svg',
+            width: '24',
+            height: '24',
+            fill: 'currentColor',
+            class: 'bi bi-check-circle-fill',
+            viewBox: '0 0 16 16'
+        });
+        var svgPath = $('<path></path>').attr('d', 'M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05');
+        var spanText = $('<span></span>').addClass('ms-2').text(message);
+        var buttonClose = $('<button></button>').attr({
+            type: 'button',
+            class: 'btn-close',
+            'data-bs-dismiss': 'alert'
+        });
+
+        alertDiv.append(svgIcon.append(svgPath));
+        alertDiv.append(spanText);
+        alertDiv.append(buttonClose);
+
+        // Oluşturulan alert div'i hedef bir öğeye eklemek isterseniz:
+        $("#ajaxDiv").attr("style", "visibility:visible;");
+        $("#ajaxDiv").append(alertDiv);
+
+        // Alert'i kapatmak için dismiss eventini tetiklemek isterseniz:
+        buttonClose.click(function () {
+            alertDiv.alert('close');
+        });
+    };
+
+</script>

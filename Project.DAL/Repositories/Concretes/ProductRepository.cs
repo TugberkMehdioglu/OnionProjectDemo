@@ -1,4 +1,5 @@
-﻿using Project.DAL.ContextClasses;
+﻿using Microsoft.EntityFrameworkCore;
+using Project.DAL.ContextClasses;
 using Project.DAL.Repositories.Abstracts;
 using Project.ENTITIES.Models;
 using System;
@@ -14,5 +15,7 @@ namespace Project.DAL.Repositories.Concretes
         public ProductRepository(MyContext context) : base(context)
         {
         }
+
+        public List<Product> GetActivesWithCategories() => _context.Products!.Include(x => x.Category).ToList();
     }
 }

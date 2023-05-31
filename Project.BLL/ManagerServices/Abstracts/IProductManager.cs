@@ -9,5 +9,6 @@ namespace Project.BLL.ManagerServices.Abstracts
 {
     public interface IProductManager : IManager<Product>
     {
+        public (bool, string?, List<Product>?) GetProductsWithCategories();
     }
 }
