@@ -44,8 +44,9 @@
                                             <div>
                                                 <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-500 fas fa-edit"></span></a>
 
-                                                <a id="deleteCategoryId" data-id="@item.ID" class="btn p-0 ms-2" data-bs-toggle="modal" data-bs-target="#modal5" data-bs-placement="top" title="Sil"><span class="text-500 fas fa-trash-alt"></span></a>
-
+                                                <span id="deleteCategoryId" data-id="@item.ID" data-bs-toggle="modal" data-bs-target="#modal5">
+                                                    <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-500 fas fa-trash-alt"></span></a>
+                                                </span>
                                             </div>
                                         </td>
                                     </tr>
@@ -98,16 +99,16 @@
 
     $(document).ready(function () {
 
-        $("#myTable").on("click", "#deleteCategoryId", function(){
+        $("#myTable").on("click", "#deleteCategoryId", function () {
 
             let id = $(this).data("id");
-            let actionTag=$(this);
+            let spanTag = $(this);
 
             // Önceki tıklamalar için kaydedilen olayları temizleyin
             $("#deleteCategoryButton").off("click");
             //Önerimdeki $("#deleteCategoryButton").off("click.deleteCategory") kullanımı, sadece belirli bir olayın (.deleteCategory) kaldırılmasını sağlamak için daha spesifik bir şekilde olayları yönetmek içindi. Ancak, $("#deleteCategoryButton").off("click") kullanarak tüm click olaylarını kaldırmanız da aynı sonucu verecektir.
 
-            $("#deleteCategoryButton").click(function(){
+            $("#deleteCategoryButton").click(function () {
 
                 $.ajax({
 
@@ -115,31 +116,51 @@
                     url: "/Admin/Category/DeleteCategory/" + id,
                     success: function (data) {
 
-                        actionTag.parent().parent().parent().remove();
-                        var myDiv = document.getElementById("ajaxDiv");
-                        myDiv.setAttribute("class" ,"alert alert-info text-center");
-                        myDiv.setAttribute("style", "visibility:visible;");                     
-                        myDiv.innerHTML = data.message;
-                        setTimeout(function(){
-
-                            myDiv.setAttribute("style", "visibility:hidden;")
-                        }, 5000);
+                        spanTag.parent().parent().parent().remove();
+                        successAlert(data.message);
                     },
                     error: function (error) {
 
-                        actionTag.parent().parent().parent().remove();
-                        var myDiv = document.getElementById("ajaxDiv");
-                        myDiv.setAttribute("class", "alert alert-info text-center");
-                        myDiv.setAttribute("style", "visibility:visible;");
-                        myDiv.innerHTML = data.message;
-                        setTimeout(function () {
-
-                            myDiv.setAttribute("style", "visibility:hidden;")
-                        }, 5000);
+                        spanTag.parent().parent().parent().remove();
+                        successAlert(data.message);
                     }
                 });
-            });      
+            });
         });
     });
+
+
+    function successAlert(message) {
+
+        var alertDiv = $('<div></div>').addClass('alert alert-success d-flex align-items-center alert-dismissible fade show');
+        var svgIcon = $('<svg></svg>').attr({
+            xmlns: 'http://www.w3.org/2000/svg',
+            width: '24',
+            height: '24',
+            fill: 'currentColor',
+            class: 'bi bi-check-circle-fill',
+            viewBox: '0 0 16 16'
+        });
+        var svgPath = $('<path></path>').attr('d', 'M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05');
+        var spanText = $('<span></span>').addClass('ms-2').text(message);
+        var buttonClose = $('<button></button>').attr({
+            type: 'button',
+            class: 'btn-close',
+            'data-bs-dismiss': 'alert'
+        });
+
+        alertDiv.append(svgIcon.append(svgPath));
+        alertDiv.append(spanText);
+        alertDiv.append(buttonClose);
+
+        // Oluşturulan alert div'i hedef bir öğeye eklemek isterseniz:
+        $("#ajaxDiv").attr("style", "visibility:visible;");
+        $("#ajaxDiv").append(alertDiv);
+
+        // Alert'i kapatmak için dismiss eventini tetiklemek isterseniz:
+        buttonClose.click(function () {
+            alertDiv.alert('close');
+        });
+    };
 
 </script>
