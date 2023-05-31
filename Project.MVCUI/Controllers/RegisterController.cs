@@ -56,7 +56,7 @@ namespace Project.MVCUI.Controllers
 
             string confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             string confirmationLink = Url.Action("Activation", "Register", new { userId = user.Id, token = confirmationToken }, HttpContext.Request.Scheme)!;
-            string message = $"Tebrikler, hesabınız oluşturulmuştur. Hesabınızı aktive etmek için {confirmationLink} linkine tıklayabilirsiniz.";
+            string message = $"Tebrikler, hesabınız oluşturulmuştur. Hesabınızı aktive etmek için <a href='{confirmationLink}'>buraya tıklayabilirsiniz.</a>";
 
             MailService.SendMailAsync(request.AppUser!.Email, message, "Hesap aktivasyon | Onion Project");
 
