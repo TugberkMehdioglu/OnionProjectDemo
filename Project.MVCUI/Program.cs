@@ -39,7 +39,7 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromDays(20);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
-    options.Cookie.Name = "DonTuchMe:)";
+    options.Cookie.Name = "DonTuchMeSession";
 });
 
 var app = builder.Build();

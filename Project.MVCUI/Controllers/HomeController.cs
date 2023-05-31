@@ -71,13 +71,12 @@ namespace Project.MVCUI.Controllers
                 return View();
             }
 
-            //AppUserProfile? userProfile = _appUserProfileManager.FindByString(user.Id);
-            //if (userProfile != null)
-            //{
-            //    SessionViewModel session = new SessionViewModel() { ImagePath = userProfile.ImagePath };
-            //    HttpContext.Session.SetSession("sessionVM", session);
-            //    SessionViewModel? model = HttpContext.Session.GetSession<SessionViewModel>("sessionVM");
-            //}
+            AppUserProfile? userProfile = _appUserProfileManager.FindByString(user.Id);
+            if (userProfile != null)
+            {
+                SessionViewModel session = new SessionViewModel() { ImagePath = userProfile.ImagePath };
+                HttpContext.Session.SetSession("sessionVM", session);
+            }
 
 
             return Redirect(returnUrl!);
