@@ -11,6 +11,7 @@ using Project.ENTITIES.Enums;
 using Project.ENTITIES.Models;
 using Project.MVCUI.Extensions;
 using Project.MVCUI.ViewModels;
+using Project.MVCUI.ViewModels.WrapperClasses;
 using System.Data;
 
 namespace Project.MVCUI.Areas.Admin.Controllers
@@ -33,8 +34,8 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             _fileProvider = fileProvider;
         }
 
-        // GET: ProductController
-        public ActionResult Index()
+
+        public IActionResult Index()
         {
             var (isSuccess, error, products) = _productManager.GetProductsWithCategories();
             if(isSuccess == false)
@@ -49,7 +50,13 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Details(int id)
+        public IActionResult DetailsByCategoryId(int id)
+        {
+            return View();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Details(int id)
         {
             ProductViewModel? product = _productManager.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Select(x => new ProductViewModel()
             {
@@ -71,7 +78,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         }
 
         // GET: ProductController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             HashSet<CategoryViewModel>? categories = _categoryManager.GetActives().Select(x => new CategoryViewModel()
             {
@@ -111,7 +118,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             ProductViewModel? product = _productManager.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Select(x => new ProductViewModel()
             {
@@ -165,7 +172,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             Product? product = _productManager.Find(id);
             if (product == null) return Json(new { message = "Ürün bulunamadı!" });
