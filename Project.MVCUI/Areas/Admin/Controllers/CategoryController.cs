@@ -37,12 +37,12 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             }
             : new CategoryWrapper()
             {
-                Category = _categoryManager.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Select(x => new CategoryViewModel()
+                Categories = _categoryManager.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Select(x => new CategoryViewModel()
                 {
                     ID = x.ID,
                     Name = x.Name,
                     Description = x.Description,
-                }).FirstOrDefault()
+                }).ToHashSet()
             };
 
             return View(categoryWrapper);
