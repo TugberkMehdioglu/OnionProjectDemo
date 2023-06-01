@@ -63,12 +63,6 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult DetailsByCategoryId(int id)
-        {
-            return View();
-        }
-
-        [HttpGet("{id}")]
         public IActionResult Details(int id)
         {
             ProductViewModel? product = _productManager.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Select(x => new ProductViewModel()
