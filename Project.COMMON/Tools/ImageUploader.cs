@@ -10,13 +10,14 @@ namespace Project.COMMON.Tools
 {
     public static class ImageUploader
     {
-        public static async Task<string?> UploadImageToUserAsync(IFormFile pictureToUpload, IFileProvider fileProvider, string? entityImagePath)
+        public static string? UploadImageToUser(IFormFile pictureToUpload, IFileProvider fileProvider, out string? entityImagePath)
         {
+            entityImagePath = null;
             if (pictureToUpload == null) return "To be upload picture is empty !";
 
-            string extension = Path.GetExtension(pictureToUpload.FileName);
+            string extension = Path.GetExtension(pictureToUpload.FileName).ToLower();
 
-            if (extension == "jpg" || extension == "gif" || extension == "png" || extension == "jpeg")
+            if (extension == ".jpg" || extension == ".gif" || extension == ".png" || extension == ".jpeg")
             {
                 IDirectoryContents wwwroot = fileProvider.GetDirectoryContents("wwwroot");
                 IFileInfo userPictures = wwwroot.First(x => x.Name == "userPictures");
@@ -25,7 +26,7 @@ namespace Project.COMMON.Tools
                 string newPicturePath = Path.Combine(userPictures.PhysicalPath!, randomFileName);
 
                 using FileStream stream = new FileStream(newPicturePath, FileMode.Create);
-                await pictureToUpload.CopyToAsync(stream);
+                pictureToUpload.CopyTo(stream);
 
                 entityImagePath = randomFileName;
                 return null;
@@ -34,13 +35,14 @@ namespace Project.COMMON.Tools
         }
 
 
-        public static async Task<string?> UploadImageToProductAsync(IFormFile pictureToUpload, IFileProvider fileProvider, string? entityImagePath)
+        public static string? UploadImageToProduct(IFormFile pictureToUpload, IFileProvider fileProvider,out string? entityImagePath)
         {
+            entityImagePath = null;
             if (pictureToUpload == null) return "To be upload picture is empty !";
 
-            string extension = Path.GetExtension(pictureToUpload.FileName);
+            string extension = Path.GetExtension(pictureToUpload.FileName).ToLower();
 
-            if (extension == "jpg" || extension == "gif" || extension == "png" || extension == "jpeg")
+            if (extension == ".jpg" || extension == ".gif" || extension == ".png" || extension == ".jpeg")
             {
                 IDirectoryContents wwwroot = fileProvider.GetDirectoryContents("wwwroot");
                 IFileInfo productPictures = wwwroot.First(x => x.Name == "productPictures");
@@ -49,7 +51,7 @@ namespace Project.COMMON.Tools
                 string newPicturePath = Path.Combine(productPictures.PhysicalPath!, randomFileName);
 
                 using FileStream stream = new FileStream(newPicturePath, FileMode.Create);
-                await pictureToUpload.CopyToAsync(stream);
+                pictureToUpload.CopyTo(stream);
 
                 entityImagePath = randomFileName;
                 return null;

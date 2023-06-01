@@ -101,19 +101,36 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductViewModel request)
+        public IActionResult Create(ProductViewModel request)
         {
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid)
+            {
+                AddCategoriesForProduct();
+
+                return View();
+            }
+            else if(_productManager.Any(x => x.Name.ToLower() == request.Name.ToLower() && x.Status != DataStatus.Deleted))
+            {
+                AddCategoriesForProduct();
+
+                return View();
+            }
 
             Product product = _mapper.Map<Product>(request);
 
-            if (request.ImagePath != null && request.ImagePath.Length > 0)
+            if (request.Image != null && request.Image.Length > 0)
             {
-                string? result = await ImageUploader.UploadImageToProductAsync(request.Image!, _fileProvider, product.ImagePath);
-                if (result != null) ModelState.AddModelErrorWithOutKey(result);
+                string? result = ImageUploader.UploadImageToProduct(request.Image!, _fileProvider, out string? entityImagePath);
+                if (result != null)
+                {
+                    ModelState.AddModelErrorWithOutKey(result);
+                    AddCategoriesForProduct();
+                    return View();
+                }
+                product.ImagePath = entityImagePath;
             }
 
-            var (isSuccess, error) = _productManager.Add(_mapper.Map<Product>(request));
+            var (isSuccess, error) = _productManager.Add(product);
             if (isSuccess == false)
             {
                 ModelState.AddModelErrorWithOutKey(error!);
@@ -163,8 +180,8 @@ namespace Project.MVCUI.Areas.Admin.Controllers
 
             if (request.ImagePath != null && request.ImagePath.Length > 0)
             {
-                string? result = await ImageUploader.UploadImageToProductAsync(request.Image!, _fileProvider, request.ImagePath);
-                if (result != null) ModelState.AddModelErrorWithOutKey(result);
+                //string? result = await ImageUploader.UploadImageToProductAsync(request.Image!, _fileProvider, request.ImagePath);
+                //if (result != null) ModelState.AddModelErrorWithOutKey(result);
             }
 
             var (isSuccess, error) = _productManager.Update(_mapper.Map<Product>(request));
@@ -187,6 +204,18 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             _productManager.Delete(product);
 
             return Json(new { message = "Ürün başarıyla silindi" });
+        }
+
+
+        public void AddCategoriesForProduct()
+        {
+            HashSet<CategoryViewModel>? categories = _categoryManager.GetActives().Select(x => new CategoryViewModel()
+            {
+                ID = x.ID,
+                Name = x.Name
+            }).ToHashSet();
+
+            TempData["categoriesSelectList"] = new SelectList(categories, nameof(CategoryViewModel.ID), nameof(CategoryViewModel.Name));
         }
     }
 }

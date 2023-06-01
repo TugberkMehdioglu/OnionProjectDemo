@@ -15,7 +15,7 @@ namespace Project.MVCUI.ViewModels
 
         [Display(Name = "Fiyat")]
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz")]
-        [RegularExpression(@"^[0-9]+(\[,.][0-9]{1,2})", ErrorMessage ="Fiyat belirlerken noktadan sonra en fazla 2 rakam giriniz, (651.23Tl vb.)")]
+        [RegularExpression(@"^[0-9]+(\.[0-9]{1,2})$", ErrorMessage = "{0} alanında noktadan sonra en fazla 2 basamak olmalıdır")]
         public decimal Price { get; set; }
 
         [Display(Name ="Stok")]
