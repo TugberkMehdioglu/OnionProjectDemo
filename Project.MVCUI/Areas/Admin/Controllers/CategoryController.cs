@@ -24,6 +24,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("{id?}")]
         public IActionResult Index(int? id)
         {
             CategoryWrapper categoryWrapper = id == null ? new CategoryWrapper()
