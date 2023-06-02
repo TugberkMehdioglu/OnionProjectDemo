@@ -109,116 +109,49 @@
                                         <span class="nav-link-icon"><span class="fas fa-calendar-alt"></span></span><span class="nav-link-text ps-1">Calendar</span>
                                     </div>
                                 </a>
-                                <!-- parent pages--><a class="nav-link dropdown-indicator" href="#e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
+                                <!-- parent pages--><a class="nav-link dropdown-indicator" href="#categories" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
                                     <div class="d-flex align-items-center">
-                                        <span class="nav-link-icon"><span class="fas fa-shopping-cart"></span></span><span class="nav-link-text ps-1">E commerce</span>
+                                        <span class="nav-link-icon"><span class="fas fa-layer-group"></span></span><span class="nav-link-text ps-1">Kategori</span>
                                     </div>
                                 </a>
-                                <ul class="nav collapse false" id="e-commerce">
+                                <ul class="nav collapse false" id="categories">
+
                                     <li class="nav-item">
-                                        <a class="nav-link dropdown-indicator" href="#product" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
+                                        <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index" aria-expanded="false">
                                             <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Product</span>
-                                            </div>
-                                        </a>
-                                        <!-- more inner pages-->
-                                        <ul class="nav collapse false" id="product">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="app/e-commerce/product/product-list.html" aria-expanded="false">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="nav-link-text ps-1">Product list</span>
-                                                    </div>
-                                                </a>
-                                                <!-- more inner pages-->
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="app/e-commerce/product/product-grid.html" aria-expanded="false">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="nav-link-text ps-1">Product grid</span>
-                                                    </div>
-                                                </a>
-                                                <!-- more inner pages-->
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="app/e-commerce/product/product-details.html" aria-expanded="false">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="nav-link-text ps-1">Product details</span>
-                                                    </div>
-                                                </a>
-                                                <!-- more inner pages-->
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link dropdown-indicator" href="#orders" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                                            <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Orders</span>
-                                            </div>
-                                        </a>
-                                        <!-- more inner pages-->
-                                        <ul class="nav collapse false" id="orders">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="app/e-commerce/orders/order-list.html" aria-expanded="false">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="nav-link-text ps-1">Order list</span>
-                                                    </div>
-                                                </a>
-                                                <!-- more inner pages-->
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="app/e-commerce/orders/order-details.html" aria-expanded="false">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="nav-link-text ps-1">Order details</span>
-                                                    </div>
-                                                </a>
-                                                <!-- more inner pages-->
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="app/e-commerce/customers.html" aria-expanded="false">
-                                            <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Customers</span>
+                                                <span class="nav-link-text ps-1">Kategoriler</span>
                                             </div>
                                         </a>
                                         <!-- more inner pages-->
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="app/e-commerce/customer-details.html" aria-expanded="false">
+                                        <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="AddCategory" aria-expanded="false">
                                             <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Customer details</span>
+                                                <span class="nav-link-text ps-1">Kategori Ekle</span>
+                                            </div>
+                                        </a>
+                                        <!-- more inner pages-->
+                                    </li>                                    
+                                </ul>
+                                <!-- parent pages--><a class="nav-link dropdown-indicator" href="#products" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
+                                    <div class="d-flex align-items-center">
+                                        <span class="nav-link-icon"><span class="fas fa-cube"></span></span><span class="nav-link-text ps-1">Ürün</span>
+                                    </div>
+                                </a>
+                                <ul class="nav collapse false" id="products">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index" aria-expanded="false">
+                                            <div class="d-flex align-items-center">
+                                                <span class="nav-link-text ps-1">Ürünler</span>
                                             </div>
                                         </a>
                                         <!-- more inner pages-->
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="app/e-commerce/shopping-cart.html" aria-expanded="false">
+                                        <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Create" aria-expanded="false">
                                             <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Shopping cart</span>
-                                            </div>
-                                        </a>
-                                        <!-- more inner pages-->
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="app/e-commerce/checkout.html" aria-expanded="false">
-                                            <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Checkout</span>
-                                            </div>
-                                        </a>
-                                        <!-- more inner pages-->
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="app/e-commerce/billing.html" aria-expanded="false">
-                                            <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Billing</span>
-                                            </div>
-                                        </a>
-                                        <!-- more inner pages-->
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="app/e-commerce/invoice.html" aria-expanded="false">
-                                            <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Invoice</span>
+                                                <span class="nav-link-text ps-1">Ürün Ekle</span>
                                             </div>
                                         </a>
                                         <!-- more inner pages-->
