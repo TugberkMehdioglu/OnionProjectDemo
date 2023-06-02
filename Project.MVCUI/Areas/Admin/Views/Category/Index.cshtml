@@ -10,7 +10,7 @@
     </div>
 }
 
-<div class="col-8 offset-2" style="visibility:hidden; font-weight:bold;" id="ajaxDiv">
+<div class="col-8 offset-2" style="visibility:hidden;" id="ajaxDiv">
 </div>
 
 <div class="card mb-3">
@@ -106,7 +106,7 @@
         $("#myTable").on("click", "#deleteCategoryId", function () {
 
             let id = $(this).data("id");
-            let spanTag = $(this);
+            let row = $(this).closest("tr");
 
             // Önceki tıklamalar için kaydedilen olayları temizleyin
             $("#deleteCategoryButton").off("click");
@@ -118,73 +118,59 @@
 
                     type: "GET",
                     url: "/Admin/Category/DeleteCategory/" + id,
-                    success: function (data) {
+                    success: function () {
 
-                        spanTag.parent().parent().parent().remove();
-                        successAlert(data.message);
+                        row.hide();
+                        successAlert("Kategori başarıyla silindi");
                     },
                     error: function (error) {
 
-                        spanTag.parent().parent().parent().remove();
-                        successAlert(data.message);
+                        successAlert(error);
                     }
                 });
+
             });
         });
-
-
-        function successAlert(message) {
-
-            var alertDiv = $('<div></div>').addClass('alert alert-success d-flex align-items-center alert-dismissible fade show');
-            var svgIcon = $('<svg></svg>').attr({
-                xmlns: 'http://www.w3.org/2000/svg',
-                width: '24',
-                height: '24',
-                fill: 'currentColor',
-                class: 'bi bi-check-circle-fill',
-                viewBox: '0 0 16 16'
-            });
-            var svgPath = $('<path></path>').attr('d', 'M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05');
-            var spanText = $('<span></span>').addClass('ms-2').text(message);
-            var buttonClose = $('<button></button>').attr({
-                type: 'button',
-                class: 'btn-close',
-                'data-bs-dismiss': 'alert'
-            });
-
-            alertDiv.append(svgIcon.append(svgPath));
-            alertDiv.append(spanText);
-            alertDiv.append(buttonClose);
-
-            // Oluşturulan alert div'i hedef bir öğeye eklemek isterseniz:
-            $("#ajaxDiv").attr("style", "visibility:visible;");
-            $("#ajaxDiv").append(alertDiv);
-
-            // Alert'i kapatmak için dismiss eventini tetiklemek isterseniz:
-            buttonClose.click(function () {
-                alertDiv.alert('close');
-            });
-        };
-
-
-        //------------------------For serching textbox---------------------
-        // Metin kutusu değiştiğinde tetiklenen olay
-        $('#searchInput').on('input', function () {
-            var searchText = $(this).val().trim().toLowerCase(); // Metin kutusundan alınan arama metni
-
-            // Tablodaki her bir satırı döngüyle kontrol et
-            $('#myTable tbody tr').each(function () {
-                var productName = $(this).find('.name').text().toLowerCase(); // Ad sütunundaki ürün adı
-
-                // Ürün adı, arama metnini içeriyorsa satırı görünür yap, aksi takdirde gizle
-                if (productName.includes(searchText)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
-        //-----------------------------------------------------------------
     });
+    //-------------------------Js Alert---------------------------------
+    function successAlert(message) {
+
+        // Yeni bir div öğesi oluştur
+        let alertDiv = document.createElement("div");
+        alertDiv.classList.add("alert", "alert-success", "d-flex", "align-items-center", "alert-dismissible", "fade", "show");
+        alertDiv.setAttribute("role", "alert");
+
+        // İçeriği oluştur
+        let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", "24");
+        svg.setAttribute("height", "24");
+        svg.setAttribute("fill", "currentColor");
+        svg.classList.add("bi", "bi-check-circle-fill");
+        svg.setAttribute("viewBox", "0 0 16 16");
+
+        let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z");
+
+        let span = document.createElement("span");
+        span.classList.add("ms-2");
+        span.textContent = message;
+
+        let button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.classList.add("btn-close");
+        button.setAttribute("data-bs-dismiss", "alert");
+
+        // Öğeleri birleştir
+        svg.appendChild(path);
+        alertDiv.appendChild(svg);
+        alertDiv.appendChild(span);
+        alertDiv.appendChild(button);
+
+        // Alert'ı belirli bir elementin içine ekleyin
+        let container = document.getElementById("ajaxDiv"); // Container elementin ID'sini buraya yazın
+        container.style.visibility = "visible";
+        container.appendChild(alertDiv);
+    };
+        //----------------------------------------------------------------------
 
 </script>

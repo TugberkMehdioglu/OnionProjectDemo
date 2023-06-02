@@ -21,6 +21,7 @@ namespace Project.MVCUI.ViewModels
         [Display(Name ="Stok")]
         [Required(ErrorMessage ="{0} alanı boş bırakılamaz")]
         [Range(1, double.MaxValue, ErrorMessage ="{0} alanı {1} ile {2} arasında olmalıdır")]
+        [DataType(DataType.Text)]
         public short Stock { get; set; }
 
         [ValidateNever]

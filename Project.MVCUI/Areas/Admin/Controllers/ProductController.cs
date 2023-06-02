@@ -112,7 +112,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             else if(_productManager.Any(x => x.Name.ToLower() == request.Name.ToLower() && x.Status != DataStatus.Deleted))
             {
                 AddCategoriesForProduct();
-
+                ModelState.AddModelErrorWithOutKey("Oluşturmaya çalıştığınız ürün zaten bulunmaktadır!");
                 return View();
             }
 
@@ -144,21 +144,14 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         [HttpGet("{id}")]
         public IActionResult Edit(int id)
         {
-            ProductViewModel? product = _productManager.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Select(x => new ProductViewModel()
-            {
-                ID = x.ID,
-                Name = x.Name,
-                Price = x.Price,
-                ImagePath = x.ImagePath,
-                Stock = x.Stock,
-                CategoryID = x.CategoryID
-            }).FirstOrDefault();
+            Product? product = _productManager.Find(id);
 
             if (product == null)
             {
                 ModelState.AddModelErrorWithOutKey("Ürün bulunamadı");
                 return RedirectToAction(nameof(Index), "Product", new { Area = "Admin" });
             }
+            ProductViewModel productViewModel = _mapper.Map<ProductViewModel>(product);
 
             HashSet<CategoryViewModel> categories = _categoryManager.GetActives().Select(x => new CategoryViewModel()
             {
@@ -166,22 +159,28 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                 Name = x.Name
             }).ToHashSet();
 
-            TempData["categoriesSelectList"] = new SelectList(categories, nameof(CategoryViewModel.ID), nameof(CategoryViewModel.Name), nameof(product.CategoryID));
+            TempData["categoriesSelectList"] = new SelectList(categories, nameof(CategoryViewModel.ID), nameof(CategoryViewModel.Name), nameof(productViewModel.CategoryID));
 
-            return View(product);
+            return View(productViewModel);
         }
 
         
         [HttpPost("{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ProductViewModel request)
+        public IActionResult Edit(ProductViewModel request)
         {
             if (!ModelState.IsValid) return RedirectToAction(nameof(Edit), "Product", new { Area = "Admin" });
 
-            if (request.ImagePath != null && request.ImagePath.Length > 0)
+            if (request.Image != null && request.Image.Length > 0)
             {
-                //string? result = await ImageUploader.UploadImageToProductAsync(request.Image!, _fileProvider, request.ImagePath);
-                //if (result != null) ModelState.AddModelErrorWithOutKey(result);
+                string? result = ImageUploader.UploadImageToProduct(request.Image!, _fileProvider, out string? entityImagePath);
+                if (result != null)
+                {
+                    ModelState.AddModelErrorWithOutKey(result);
+                    AddCategoriesForProduct();
+                    return View();
+                }
+                request.ImagePath = entityImagePath;
             }
 
             var (isSuccess, error) = _productManager.Update(_mapper.Map<Product>(request));
@@ -199,11 +198,21 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         public IActionResult Delete(int id)
         {
             Product? product = _productManager.Find(id);
-            if (product == null) return Json(new { message = "Ürün bulunamadı!" });
+            if (product == null)
+            {
+                ModelState.AddModelErrorWithOutKey("Ürün bulunamadı");
+                return RedirectToAction(nameof(Index), "Product", new { Area = "Admin" });
+            }
 
-            _productManager.Delete(product);
+            var (isSuccess, error) = _productManager.Delete(product);
+            if (!isSuccess)
+            {
+                ModelState.AddModelErrorWithOutKey(error!);
+                return RedirectToAction(nameof(Index), "Product", new { Area = "Admin" });
+            }
 
-            return Json(new { message = "Ürün başarıyla silindi" });
+            TempData["success"] = "Ürün başarıyla silindi";
+            return RedirectToAction(nameof(Index), "Product", new { Area = "Admin" });
         }
 
 
