@@ -83,7 +83,10 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             Category? category=_categoryManager.Find(id);
             if(category == null) return RedirectToAction(nameof(Index), "Category", new { Area = "Admin" });
 
-            return View(_mapper.Map<CategoryViewModel>(category));
+            CategoryViewModel viewModel = _mapper.Map<CategoryViewModel>(category);
+            viewModel.FormerName = category.Name;
+
+            return View(viewModel);
         }
 
         [HttpPost("{id}")]
@@ -91,6 +94,12 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         public IActionResult UpdateCategory(CategoryViewModel request)
         {
             if(!ModelState.IsValid) return View(request);
+
+            if (request.FormerName != request.Name && _categoryManager.Any(x => x.Name == request.Name && x.Status != DataStatus.Deleted))
+            {
+                ModelState.AddModelErrorWithOutKey("Güncellemek istediğiniz kategori adı zaten mevcut!");
+                return View();
+            }
 
             var (isSuccess, error) = _categoryManager.Update(_mapper.Map<Category>(request));
             if(error != null )
