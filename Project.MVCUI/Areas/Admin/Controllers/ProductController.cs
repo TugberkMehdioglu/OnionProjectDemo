@@ -152,6 +152,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index), "Product", new { Area = "Admin" });
             }
             ProductViewModel productViewModel = _mapper.Map<ProductViewModel>(product);
+            productViewModel.FormerName = product.Name;
 
             HashSet<CategoryViewModel> categories = _categoryManager.GetActives().Select(x => new CategoryViewModel()
             {
@@ -170,6 +171,13 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         public IActionResult Edit(ProductViewModel request)
         {
             if (!ModelState.IsValid) return RedirectToAction(nameof(Edit), "Product", new { Area = "Admin" });
+
+            if (request.FormerName != request.Name && _productManager.Any(x => x.Name == request.Name && x.Status != DataStatus.Deleted))
+            {
+                ModelState.AddModelErrorWithOutKey("Güncellemek istediğiniz ürün adı zaten mevcut!");
+                AddCategoriesForProduct();
+                return View(request);
+            }
 
             if (request.Image != null && request.Image.Length > 0)
             {

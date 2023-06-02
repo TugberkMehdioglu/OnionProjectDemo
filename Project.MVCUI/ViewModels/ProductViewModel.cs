@@ -13,6 +13,8 @@ namespace Project.MVCUI.ViewModels
         [StringLength(100, MinimumLength = 2, ErrorMessage ="{0} alanı {2} ile {1} karakter arasında olmalıdır")]
         public string Name { get; set; } = null!;
 
+        public string? FormerName { get; set; }
+
         [Display(Name = "Fiyat")]
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz")]
         [RegularExpression(@"^[0-9]+(\.[0-9]{1,2})$", ErrorMessage = "{0} alanında noktadan sonra en fazla 2 basamak olmalıdır")]
