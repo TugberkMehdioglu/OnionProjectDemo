@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 using Project.BLL.ManagerServices.Abstracts;
 using Project.BLL.ManagerServices.Concretes;
 using Project.COMMON.Tools;
@@ -58,7 +59,6 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             }
 
             HashSet<ProductViewModel> productsViewModel = _mapper.Map<HashSet<ProductViewModel>>(products);
-
             return View(productsViewModel);
         }
 
@@ -216,6 +216,24 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             }).ToHashSet();
 
             TempData["categoriesSelectList"] = new SelectList(categories, nameof(CategoryViewModel.ID), nameof(CategoryViewModel.Name));
+        }
+
+
+        //For search product on Product.Index action method but never used
+        [HttpGet("{value}")]
+        public IActionResult GetProducts(string value)
+        {
+            var (success, error, products) = _productManager.GetProductsWithCategories(x => x.Name.ToLower() == value.ToLower() && x.Status != DataStatus.Deleted);
+
+            if (!success)
+            {
+                ModelState.AddModelErrorWithOutKey("Ürün bulunamadı");
+                return RedirectToAction(nameof(Index), "Product", new { Area = "Admin" });
+            }
+
+            HashSet<ProductViewModel> viewModels = _mapper.Map<HashSet<ProductViewModel>>(products);
+
+            return View("Index", viewModels);
         }
     }
 }

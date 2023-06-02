@@ -19,14 +19,11 @@
 <div class="card mb-3">
     <div class="card-header">
         <div class="row flex-between-end">
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
             <div class=" text-center align-self-center">
                 <h3 class="mb-0">Ürünler</h3>
-            </div>
-            <div class="input-group w-50 mx-auto mt-2">
-                <span class="input-group-text">
-                    <i class="bi bi-search"></i>
-                </span>
-                <input type="text" id="searchInput" class="form-control" placeholder="Ürün adlarında arama yap...">
             </div>
         </div>
     </div>
@@ -51,7 +48,7 @@
                                 {
                                     <tr class="align-middle">
                                         <td class="image text-center">
-                                            @if(item.ImagePath != null)
+                                            @if (item.ImagePath != null)
                                             {
                                                 <img lass="rounded-circle" src="~/productPictures/@(item.ImagePath!)" alt="Resim Görüntülenemiyor" style="height:100px; width:100px;" />
                                             }
@@ -193,22 +190,24 @@
 
         //------------------------For serching textbox---------------------
         // Metin kutusu değiştiğinde tetiklenen olay
-        $('#searchInput').on('input', function () {
-            var searchText = $(this).val().trim().toLowerCase(); // Metin kutusundan alınan arama metni
+        //$('#searchInput').on('input', function () {
+        //    var searchText = $(this).val().trim().toLowerCase(); // Metin kutusundan alınan arama metni
 
-            // Tablodaki her bir satırı döngüyle kontrol et
-            $('#myTable tbody tr').each(function () {
-                var productName = $(this).find('.name').text().toLowerCase(); // Ad sütunundaki ürün adı
+        //    // Tablodaki her bir satırı döngüyle kontrol et
+        //    $('#myTable tbody tr').each(function () {
+        //        var productName = $(this).find('.name').text().toLowerCase(); // Ad sütunundaki ürün adı
 
-                // Ürün adı, arama metnini içeriyorsa satırı görünür yap, aksi takdirde gizle
-                if (productName.includes(searchText)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
+        //        // Ürün adı, arama metnini içeriyorsa satırı görünür yap, aksi takdirde gizle
+        //        if (productName.includes(searchText)) {
+        //            $(this).show();
+        //        } else {
+        //            $(this).hide();
+        //        }
+        //    });
+        //});
         //-----------------------------------------------------------------
+
+
     });
 
 </script>
