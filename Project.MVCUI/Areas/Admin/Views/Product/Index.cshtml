@@ -11,7 +11,12 @@
     </div>
 }
 
-
+@if (TempData["fail"] != null)
+{
+    <div class="col-8 offset-2">
+        <partial name="_AlertFailPartial" model="@(TempData["fail"]!.ToString())"></partial>
+    </div>
+}
 
 <div class="col-8 offset-2" style="visibility:hidden;" id="ajaxDiv">
 </div>
@@ -63,6 +68,8 @@
                                         <td class="stock text-center">@item.Stock Adet</td>
                                         <td class="text-center">
                                             <div>
+                                                <a asp-area="Admin" asp-controller="Product" asp-action="Details" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="İncele" class="btn p-0 me-2"><span class="text-500 fas fa-eye"></span></a>
+
                                                 <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-500 fas fa-edit"></span></a>
 
                                                 <span id="deleteCategoryId" onclick="clickMe()" data-id="@item.ID" data-bs-toggle="modal" data-bs-target="#modal5">

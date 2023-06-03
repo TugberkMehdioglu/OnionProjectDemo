@@ -65,23 +65,16 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         [HttpGet("{id}")]
         public IActionResult Details(int id)
         {
-            ProductViewModel? product = _productManager.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Select(x => new ProductViewModel()
+            var (isSuccess, error, product) = _productManager.GetActiveProductWithCategory(id);
+            if (!isSuccess)
             {
-                ID = x.ID,
-                Name = x.Name,
-                Price = x.Price,
-                ImagePath = x.ImagePath,
-                Stock = x.Stock,
-                Category = _mapper.Map<CategoryViewModel>(x.Category)
-            }).FirstOrDefault();
-
-            if (product == null)
-            {
-                ModelState.AddModelErrorWithOutKey("Ürün bulunamadı");
+                TempData["fail"] = error;
                 return RedirectToAction(nameof(Index), "Product", new { Area = "Admin" });
             }
 
-            return View(product);
+            ProductViewModel viewModel = _mapper.Map<ProductViewModel>(product);
+
+            return View(viewModel);
         }
 
         // GET: ProductController/Create

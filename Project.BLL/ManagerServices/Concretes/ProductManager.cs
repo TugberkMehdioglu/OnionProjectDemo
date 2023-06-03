@@ -48,5 +48,22 @@ namespace Project.BLL.ManagerServices.Concretes
             }
             return (true, null, products);
         }
+
+        public(bool, string?, Product?) GetActiveProductWithCategory(int id)
+        {
+            Product? product;
+            try
+            {
+                product = _productRepository.GetActiveProductWithCategory(id);
+            }
+            catch (Exception exception)
+            {
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}", null);
+            }
+
+            if (product == null) return (false, "Belirtilen ürün bulunamadı", null);
+
+            return (true, null, product);
+        }
     }
 }

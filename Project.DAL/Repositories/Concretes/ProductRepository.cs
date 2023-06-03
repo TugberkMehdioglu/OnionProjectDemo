@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Project.DAL.ContextClasses;
 using Project.DAL.Repositories.Abstracts;
+using Project.ENTITIES.Enums;
 using Project.ENTITIES.Models;
 using System;
 using System.Collections.Generic;
@@ -20,5 +21,7 @@ namespace Project.DAL.Repositories.Concretes
         public List<Product> GetActivesWithCategories() => _context.Products!.Where(x => x.Status != ENTITIES.Enums.DataStatus.Deleted).Include(x => x.Category).ToList();
 
         public List<Product> GetProductsWithCategories(Expression<Func<Product, bool>> whereExpression) => _context.Products!.Where(whereExpression).Include(x => x.Category).ToList();
+
+        public Product? GetActiveProductWithCategory(int id) => _context.Products!.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Include(x => x.Category).FirstOrDefault();
     }
 }
