@@ -11,5 +11,6 @@ namespace Project.BLL.ManagerServices.Abstracts
     public interface IAppUserManager : IManager<AppUser>
     {
         public Task<(bool, IEnumerable<IdentityError>?, string?)> AddUserByIdentityAsync(AppUser user);
+        public Task<(bool, string?, AppUser?)> GetUserWithProfileAsync(string userName);
     }
 }

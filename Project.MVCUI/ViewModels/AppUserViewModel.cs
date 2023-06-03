@@ -1,4 +1,5 @@
-﻿using Project.ENTITIES.Models;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Project.ENTITIES.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
@@ -27,16 +28,18 @@ namespace Project.MVCUI.ViewModels
 
         [Display(Name = "Şifre")]
         [Required(ErrorMessage = "{0} boş bırakılamaz")]
-        [MinLength(6, ErrorMessage = "Şifre en az {1} karakter olabilir")]
+        [StringLength(40, MinimumLength = 6, ErrorMessage = "{0} {2} ile {1} karakter arası olmalıdır")]
         [DataType(DataType.Password)]
         public string PasswordHash { get; set; } = null!;
 
         [Display(Name = "Şifre Tekrar")]
         [Required(ErrorMessage = "{0} boş bırakılamaz")]
         [Compare(nameof(PasswordHash), ErrorMessage = "Girmiş olduğunuz şifreler uyuşmuyor")]
-        [MinLength(6, ErrorMessage = "Şifre en az {1} karakter olabilir")]
         [StringLength(40, MinimumLength =6, ErrorMessage ="{0} {2} ile {1} karakter arası olmalıdır")]
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; } = null!;
+
+        [ValidateNever]
+        public AppUserProfileViewModel? AppUserProfile { get; set; }
     }
 }

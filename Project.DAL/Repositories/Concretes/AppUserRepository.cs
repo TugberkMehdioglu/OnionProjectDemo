@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Project.DAL.ContextClasses;
 using Project.DAL.Repositories.Abstracts;
+using Project.ENTITIES.Enums;
 using Project.ENTITIES.Models;
 using System;
 using System.Collections.Generic;
@@ -32,5 +34,7 @@ namespace Project.DAL.Repositories.Concretes
             }
             return (false, result.Errors);
         }
+
+        public async Task<AppUser?> GetUserWithProfileAsync(string userName) => await _context.AppUsers!.Where(x => x.UserName == userName && x.Status != DataStatus.Deleted).Include(x => x.AppUserProfile).FirstOrDefaultAsync();
     }
 }
