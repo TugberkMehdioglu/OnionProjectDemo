@@ -38,17 +38,17 @@
                                 @foreach (CategoryViewModel item in Model.Categories!)
                                 {
                                     <tr>
-                                        <td class="name text-center">@item.Name</td>
-                                        <td class="description text-center">@(item.Description ?? "Açıklaması Yok")</td>
+                                        <td class="name text-center text-800">@item.Name</td>
+                                        <td class="description text-center text-800">@(item.Description ?? "Açıklaması Yok")</td>
                                         <td class="text-center">
                                             <div>
-                                                <a asp-area="Admin" asp-controller="Product" asp-action="Index" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürünlerine Gözat" class="btn p-0 me-2"><span class="text-500 fas fa-eye"></span></a>
+                                                <a asp-area="Admin" asp-controller="Product" asp-action="Index" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Ürünlerine Gözat" class="btn p-0 me-2"><span class="text-800 fas fa-eye"></span></a>
                                                 
 
-                                                <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-500 fas fa-edit"></span></a>
+                                                <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-800 fas fa-edit"></span></a>
 
                                                 <span id="deleteCategoryId" data-id="@item.ID" data-bs-toggle="modal" data-bs-target="#modal5">
-                                                    <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-500 fas fa-trash-alt"></span></a>
+                                                    <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-800 fas fa-trash-alt"></span></a>
                                                 </span>
                                             </div>
                                         </td>

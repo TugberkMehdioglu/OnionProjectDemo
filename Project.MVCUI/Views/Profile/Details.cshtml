@@ -18,10 +18,7 @@
                 <h4 class="mb-1">
                     @Model.AppUserProfile.FullName<span data-bs-toggle="tooltip" data-bs-placement="right" title="Onaylı"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span>
                 </h4>
-                <h5 class="fs-0 fw-normal">Senior Software Engineer at Technext Limited</h5>
-                <p class="text-500">New York, USA</p>
-                <button class="btn btn-falcon-primary btn-sm px-3" type="button">Following</button>
-                <button class="btn btn-falcon-default btn-sm px-3 ms-2" type="button">Message</button>
+                <button class="btn btn-falcon-default btn-sm px-4 mt-3 ms-2" type="button">Düzenle</button>
                 <div class="border-dashed-bottom my-4 d-lg-none"></div>
             </div>
         </div>
@@ -34,11 +31,47 @@
                 <h5 class="mb-0">Detay</h5>
             </div>
             <div class="card-body text-justify">
-                <p class="mb-0 text-1000">Dedicated, passionate, and accomplished Full Stack Developer with 9+ years of progressive experience working as an Independent Contractor for Google and developing and growing my educational social network that helps others learn programming, web design, game development, networking.</p>
-                <div class="collapse show" id="profile-intro">
-                    <p class="mt-3 text-1000">I’ve acquired a wide depth of knowledge and expertise in using my technical skills in programming, computer science, software development, and mobile app development to developing solutions to help organizations increase productivity, and accelerate business performance. </p>
-                    <p class="text-1000">It’s great that we live in an age where we can share so much with technology but I’m but I’m ready for the next phase of my career, with a healthy balance between the virtual world and a workplace where I help others face-to-face.</p>
-                    <p class="text-1000 mb-0">There’s always something new to learn, especially in IT-related fields. People like working with me because I can explain technology to everyone, from staff to executives who need me to tie together the details and the big picture. I can also implement the technologies that successful projects need.</p>
+
+                <div class="mb-0 text-1000 row">
+                        <label for="userName" class="col-form-label col-sm-2">Kullanıcı Adı :</label>
+                    <div class="col-sm-10 d-flex align-content-center">
+                        <input class="form-control" readonly id="userName" value="@Model.UserName" />
+                    </div>
+                </div>
+
+                <div class="mb-0 text-1000 row mt-3">
+                    <label for="email" class="col-form-label col-sm-2">Email :</label>
+                    <div class="col-sm-10 d-flex align-content-center">
+                        <input class="form-control" readonly id="email" value="@Model.Email" />
+                    </div>
+                </div>
+
+                <div class="collapse show mb-0 text-1000 row mt-3" id="profile-intro">
+                    <label for="phone" class="col-form-label col-sm-2">Telefon :</label>
+                    <div class="col-sm-10 d-flex align-content-center">
+                        <input class="form-control" readonly id="phone" value="@Model.PhoneNumber" />
+                    </div>
+                </div>
+
+                <div class="collapse show mb-0 text-1000 row mt-3" id="profile-intro">
+                    <label for="name" class="col-form-label col-sm-2">İsim :</label>
+                    <div class="col-sm-10 d-flex align-content-center">
+                        <input class="form-control" readonly id="name" value="@Model.AppUserProfile.FirstName" />
+                    </div>
+                </div>
+
+                <div class="collapse show mb-0 text-1000 row mt-3" id="profile-intro">
+                    <label for="lastName" class="col-form-label col-sm-2">Soyisim :</label>
+                    <div class="col-sm-10 d-flex align-content-center">
+                        <input class="form-control" readonly id="lastName" value="@Model.AppUserProfile.LastName" />
+                    </div>
+                </div>
+
+                <div class="collapse show mb-0 text-1000 row mt-3" id="profile-intro">
+                    <label for="address" class="col-form-label col-sm-2">Adres :</label>
+                    <div class="col-sm-10 d-flex align-content-center">
+                        <input class="form-control" readonly id="address" value="@Model.AppUserProfile.Address" />
+                    </div>
                 </div>
             </div>
             <div class="card-footer bg-light p-0 border-top">
