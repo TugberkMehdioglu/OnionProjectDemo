@@ -12,5 +12,6 @@ namespace Project.DAL.Repositories.Abstracts
     {
         public Task<(bool, IEnumerable<IdentityError>?)> AddUserAsync(AppUser appUser);
         public Task<AppUser?> GetUserWithProfileAsync(string userName);
+        public Task<(bool, IEnumerable<IdentityError>?)> EditUserWithOutPictureAsync(AppUser appUser);
     }
 }

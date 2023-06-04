@@ -7,7 +7,7 @@ namespace Project.MVCUI.ViewModels
 {
     public class AppUserViewModel
     {
-        public string? ID { get; set; }
+        public string? Id { get; set; }
 
         [Display(Name = "Kullanıcı Adı")]
         [Required(ErrorMessage = "{0} boş bırakılamaz")]
@@ -38,6 +38,9 @@ namespace Project.MVCUI.ViewModels
         [StringLength(40, MinimumLength =6, ErrorMessage ="{0} {2} ile {1} karakter arası olmalıdır")]
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; } = null!;
+
+        [ValidateNever]
+        public IFormFile? Image { get; set; }
 
         [ValidateNever]
         public AppUserProfileViewModel? AppUserProfile { get; set; }

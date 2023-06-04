@@ -45,5 +45,23 @@ namespace Project.BLL.ManagerServices.Concretes
 
             return (true, null, user);
         }
+
+
+        public async Task<(bool, string?, IEnumerable<IdentityError>?)> EditUserWithOutPictureAsync(AppUser appUser)
+        {
+            bool isSuccess;
+            IEnumerable<IdentityError>? errors;
+            try
+            {
+                (isSuccess, errors) = await _appUserRepository.EditUserWithOutPictureAsync(appUser);
+            }
+            catch (Exception exception)
+            {
+                return (false, $"Veritabanı işlemi sırasında hata oluştu, alınan hata => {exception.Message}. İçeriği => {exception.InnerException}", null);
+            }
+            if (!isSuccess) return (false, null, errors);
+
+            return (true, null, null);
+        }
     }
 }
