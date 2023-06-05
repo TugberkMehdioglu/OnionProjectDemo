@@ -39,7 +39,7 @@ namespace Project.DAL.Repositories.Concretes
 
         public async Task<(bool, IEnumerable<IdentityError>?)> EditUserWithOutPictureAsync(AppUser appUser)
         {
-            AppUser newUser = await _userManager.FindByNameAsync(appUser.UserName);
+            AppUser newUser = await _userManager.FindByIdAsync(appUser.Id);
             newUser.Email = appUser.Email;
             newUser.UserName = appUser.UserName;
             newUser.PhoneNumber = appUser.PhoneNumber;

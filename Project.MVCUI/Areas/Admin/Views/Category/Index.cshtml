@@ -47,7 +47,7 @@
 
                                                 <a asp-area="Admin" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-800 fas fa-edit"></span></a>
 
-                                                <span id="deleteCategoryId" data-id="@item.ID" data-bs-toggle="modal" data-bs-target="#modal5">
+                                                <span id="deleteCategoryId" data-id="@item.ID" data-name="@item.Name" data-bs-toggle="modal" data-bs-target="#modal5">
                                                     <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-800 fas fa-trash-alt"></span></a>
                                                 </span>
                                             </div>
@@ -77,7 +77,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                Mevcut kategoriyi silmek istediğinize emin misiniz?
+                
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" id="closeModal">Kapat</button>
@@ -103,7 +103,13 @@
 
     $(document).ready(function () {
 
+
+
         $("#myTable").on("click", "#deleteCategoryId", function () {
+
+            let name = $(this).data("name");
+            let modalBodyText = name + " kategorisini silmek istediğinize emin misiniz?";
+            $(".modal-body").text(modalBodyText);
 
             let id = $(this).data("id");
             let row = $(this).closest("tr");

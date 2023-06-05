@@ -59,6 +59,7 @@ namespace Project.MVCUI.Controllers
             {
                 AppUser = _mapper.Map<AppUserViewModel>(appUser)
             };
+            wrapper.AppUser!.Id = appUser!.Id;
             wrapper.AppUser!.AppUserProfile!.ID = appUser!.AppUserProfile!.ID;
 
             return View(wrapper);
