@@ -4,11 +4,11 @@
     ViewData["Title"] = "Edit";
 }
 
+<div class="col-8 offset-2 text-danger alert alert-danger" asp-validation-summary="ModelOnly" role="alert"></div>
+
 <div class="row">
     <div class="col-12">
         <div class="card mb-3 btn-reveal-trigger">
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="card-header position-relative min-vh-25 mb-8">
                 <div class="cover-image">
@@ -23,6 +23,9 @@
                     </div>
                 </div>
             </div>
+            <a class="btn btn-falcon-default btn-sm mb-3 ms-sm-2 col-sm-2 col-md-4 col-lg-3 col-xl-3 col-xxl-3" asp-controller="Profile" asp-action="Details">Profile geri dön</a>
+            <div class="border-dashed-bottom my-4 d-lg-none"></div>
+
         </div>
     </div>
 </div>
@@ -35,8 +38,8 @@
             <div class="card-body bg-light">
                 <form class="row g-3" method="post">
 
-                    <input type="hidden" asp-for="AppUser!.Id"/>
-                    <input type="hidden" asp-for="AppUser!.AppUserProfile!.ID"/>
+                    <input type="hidden" asp-for="AppUser!.Id" />
+                    <input type="hidden" asp-for="AppUser!.AppUserProfile!.ID" />
 
                     <div class="col-lg-6">
                         <label class="form-label" for="FirstName">İsim</label>
@@ -110,3 +113,9 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial"></partial>
 }
+
+<script>
+
+
+
+</script>
