@@ -25,31 +25,31 @@ namespace Project.DAL.Repositories.Concretes
             _context.SaveChanges();
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             _context.Set<T>().Add(entity);
             Save();
         }
 
-        public void AddRange(ICollection<T> entities)
+        public virtual void AddRange(ICollection<T> entities)
         {
             _context.Set<T>().AddRange(entities);
             Save();
         }
 
-        public bool Any(Expression<Func<T, bool>> expression)
+        public virtual bool Any(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Any(expression);
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             entity.Status = DataStatus.Deleted;
             entity.DeletedDate = DateTime.Now;
             Save();
         }
 
-        public void DeleteRange(ICollection<T> entities)
+        public virtual void DeleteRange(ICollection<T> entities)
         {
             foreach (T item in entities)
             {
@@ -57,74 +57,74 @@ namespace Project.DAL.Repositories.Concretes
             }
         }
 
-        public void Destroy(T entity)
+        public virtual void Destroy(T entity)
         {
             _context.Set<T>().Remove(entity);
             Save();
         }
 
-        public void DestroyRange(ICollection<T> entities)
+        public virtual void DestroyRange(ICollection<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
             Save();
         }
 
-        public T? Find(int id)
+        public virtual T? Find(int id)
         {
             return _context.Set<T>().Find(id);
         }
 
-        public T? FindByString(string id)
+        public virtual T? FindByString(string id)
         {
             return _context.Set<T>().Find(id);
         }
 
-        public T? FindFirstData()
+        public virtual T? FindFirstData()
         {
             return _context.Set<T>().OrderBy(x => x.CreatedDate).FirstOrDefault();
         }
 
-        public T? FindLastData()
+        public virtual T? FindLastData()
         {
             return _context.Set<T>().OrderByDescending(x => x.CreatedDate).FirstOrDefault();
         }
 
-        public T? FirstOrDefault(Expression<Func<T, bool>> expression)
+        public virtual T? FirstOrDefault(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().FirstOrDefault(expression);
         }
 
-        public IEnumerable<T> GetActives()
+        public virtual IEnumerable<T> GetActives()
         {
             return Where(x => x.Status != DataStatus.Deleted);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _context.Set<T>();
         }
 
-        public IEnumerable<T> GetModifieds()
+        public virtual IEnumerable<T> GetModifieds()
         {
             return Where(x => x.Status == DataStatus.Updated);
         }
 
-        public IEnumerable<T> GetPassives()
+        public virtual IEnumerable<T> GetPassives()
         {
             return Where(x => x.Status == DataStatus.Deleted);
         }
 
-        public object Select(Expression<Func<T, object>> expression)
+        public virtual object Select(Expression<Func<T, object>> expression)
         {
             return _context.Set<T>().Select(expression);
         }
 
-        public X? Select<X>(Expression<Func<T, X>> expression) where X : class
+        public virtual X? Select<X>(Expression<Func<T, X>> expression) where X : class
         {
             return _context.Set<T>().Select(expression).FirstOrDefault();
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             entity.Status = DataStatus.Updated;
             entity.ModifiedDate = DateTime.Now;
@@ -133,7 +133,7 @@ namespace Project.DAL.Repositories.Concretes
             Save();
         }
 
-        public void UpdateRange(ICollection<T> entities)
+        public virtual void UpdateRange(ICollection<T> entities)
         {
             foreach (T item in entities)
             {
@@ -141,7 +141,7 @@ namespace Project.DAL.Repositories.Concretes
             }
         }
 
-        public IEnumerable<T> Where(Expression<Func<T, bool>> expression)
+        public virtual IEnumerable<T> Where(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
         }

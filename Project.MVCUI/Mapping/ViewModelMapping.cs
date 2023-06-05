@@ -8,7 +8,10 @@ namespace Project.MVCUI.Mapping
     {
         public ViewModelMapping()
         {
-            CreateMap<AppUser, AppUserViewModel>().ReverseMap().ForMember(x => x.ID, opt => opt.Ignore());
+            //ID prop'ınu map'leme demiş olduk.
+            CreateMap<AppUser, AppUserViewModel>().ReverseMap()
+                .ForMember(x => x.ID, opt => opt.Ignore());
+
             CreateMap<AppUserProfile, AppUserProfileViewModel>().ReverseMap();
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             CreateMap<Product, ProductViewModel>().ReverseMap();

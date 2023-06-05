@@ -59,8 +59,7 @@ namespace Project.MVCUI.Controllers
             {
                 AppUser = _mapper.Map<AppUserViewModel>(appUser)
             };
-            wrapper.AppUser.Id = appUser!.Id;
-            wrapper.AppUser!.AppUserProfile!.ID = appUser.AppUserProfile!.ID;
+            wrapper.AppUser!.AppUserProfile!.ID = appUser!.AppUserProfile!.ID;
 
             return View(wrapper);
         }
@@ -78,8 +77,6 @@ namespace Project.MVCUI.Controllers
             if (!ModelState.IsValid) return View(request);
 
             AppUserProfile appUserProfile = _mapper.Map<AppUserProfile>(request.AppUser!.AppUserProfile);
-            AppUserProfileViewModel formerAppUserProfileViewModel = request.AppUser.AppUserProfile!;
-            request.AppUser!.AppUserProfile = null;
             AppUser appUser = _mapper.Map<AppUser>(request.AppUser);
 
             if(request.AppUser!.Image != null && request.AppUser.Image.Length > 0)
@@ -88,7 +85,6 @@ namespace Project.MVCUI.Controllers
                 if(result != null)
                 {
                     ModelState.AddModelErrorWithOutKey(result);
-                    request.AppUser.AppUserProfile = formerAppUserProfileViewModel;
                     return View(request);
                 }
 
@@ -99,13 +95,11 @@ namespace Project.MVCUI.Controllers
             if (!isSuccess && errors != null)
             {
                 ModelState.AddModelErrorListWithOutKey(errors);
-                request.AppUser.AppUserProfile = formerAppUserProfileViewModel;
                 return View(request);
             }
             else if (!isSuccess && errors == null)
             {
                 ModelState.AddModelErrorWithOutKey(error!);
-                request.AppUser.AppUserProfile= formerAppUserProfileViewModel;
                 return View(request);
             }
 
@@ -113,7 +107,6 @@ namespace Project.MVCUI.Controllers
             if(!success)
             {
                 ModelState.AddModelErrorWithOutKey(errorAlert!);
-                request.AppUser.AppUserProfile = formerAppUserProfileViewModel;
                 return View(request);
             }
 

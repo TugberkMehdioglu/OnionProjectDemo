@@ -4,12 +4,14 @@
     ViewData["Title"] = "Details";
 }
 
-<div class="card mb-3">
-
-    @if (TempData["success"] != null)
-    {
+@if (TempData["success"] != null)
+{
+    <div class="col-6 offset-3">
         <partial name="_AlertSuccessPartial" model="@(TempData["success"]!.ToString())"></partial>
-    }
+    </div>
+}
+
+<div class="card mb-3">
 
     <div class="card-header position-relative min-vh-25 mb-7">
         <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url(/OuterTools/assets/img/generic/4.jpg);">

@@ -1,5 +1,6 @@
 ﻿using Project.DAL.ContextClasses;
 using Project.DAL.Repositories.Abstracts;
+using Project.ENTITIES.Enums;
 using Project.ENTITIES.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,15 @@ namespace Project.DAL.Repositories.Concretes
     {
         public AppUserProfileRepository(MyContext context) : base(context)
         {
+        }
+
+        public override void Update(AppUserProfile entity)
+        {
+            entity.Status = DataStatus.Updated;
+            entity.ModifiedDate = DateTime.Now;
+            AppUserProfile toBeUpdated = FindByString(entity.ID)!;
+            _context.Entry(toBeUpdated).CurrentValues.SetValues(entity);
+            Save();
         }
     }
 }
