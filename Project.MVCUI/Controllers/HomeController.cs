@@ -96,6 +96,7 @@ namespace Project.MVCUI.Controllers
         public async Task LogOut()
         {
             await _signInManager.SignOutAsync();
+            HttpContext.Session.Remove("sessionVM");
         }
 
         public IActionResult AccessDenied()

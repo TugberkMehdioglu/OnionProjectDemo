@@ -49,10 +49,10 @@ namespace Project.MVCUI.Controllers
             return View(viewModel);
         }
 
-        [HttpGet("{userName}")]
-        public async Task<IActionResult> Edit(string userName)
+        
+        public async Task<IActionResult> Edit()
         {
-            var (isSuccess, error, appUser) = await _appUserManager.GetUserWithProfileAsync(userName);
+            var (isSuccess, error, appUser) = await _appUserManager.GetUserWithProfileAsync(User.Identity!.Name!);
             if(!isSuccess)
             {
                 TempData["fail"] = error;
@@ -80,7 +80,7 @@ namespace Project.MVCUI.Controllers
         }
 
         
-        [HttpPost("{userName}")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ProfileEditWrapper request)
         {
@@ -142,7 +142,7 @@ namespace Project.MVCUI.Controllers
             if (!await _userManager.CheckPasswordAsync(user, request.PasswordChange!.FormerPassword))
             {
                 TempData["error"] = "Eski şifreniz yanlış";
-                return RedirectToAction(nameof(Edit), "Profile", new { userName = user.UserName });
+                return RedirectToAction(nameof(Edit), "Profile");
             }
 
             var (isSuccess, error, errors) = await _appUserManager.ChangePasswordAsync(user, request.PasswordChange!.FormerPassword, request.PasswordChange!.NewPassword);
@@ -151,7 +151,7 @@ namespace Project.MVCUI.Controllers
             {
                 HttpContext.Session.SetSession("identityErrors", errors);
 
-                return RedirectToAction(nameof(Edit), "Profile", new { userName = user.UserName });
+                return RedirectToAction(nameof(Edit), "Profile");
             }
             else if(!isSuccess && error != null)
             {
