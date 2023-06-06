@@ -4,6 +4,13 @@
     ViewData["Title"] = "Edit";
 }
 
+@if (TempData["fail"]!= null)
+{
+    <div class="col-8 offset-2">
+        <partial name="_AlertFailPartial" model="@TempData["fail"]"></partial>
+    </div>
+}
+
 <div class="col-8 offset-2 text-danger alert alert-danger" asp-validation-summary="ModelOnly" role="alert"></div>
 
 <div class="row">
@@ -85,21 +92,21 @@
                     <h5 class="mb-0">Şifre Değiştir</h5>
                 </div>
                 <div class="card-body bg-light">
-                    <form asp-controller="Profile" asp-action="ResetPassword" method="post">
+                    <form asp-controller="Profile" asp-action="ChangePassword" method="post">
                         <div class="mb-3">
                             <label class="form-label" for="FormerPassword">Mevcut Şifre</label>
-                            <input class="form-control" id="FormerPassword" asp-for="ResetPassword!.FormerPassword" />
-                            <span asp-validation-for="ResetPassword!.FormerPassword" class="text-danger"></span>
+                            <input class="form-control" id="FormerPassword" asp-for="PasswordChange!.FormerPassword" />
+                            <span asp-validation-for="PasswordChange!.FormerPassword" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="NewPassword">Yeni Şifre</label>
-                            <input class="form-control" id="NewPassword" asp-for="ResetPassword!.NewPassword" />
-                            <span asp-validation-for="ResetPassword!.NewPassword" class="text-danger"></span>
+                            <input class="form-control" id="NewPassword" asp-for="PasswordChange!.NewPassword" />
+                            <span asp-validation-for="PasswordChange!.NewPassword" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="NewPasswordConfirm">Yeni Şifre Tekrar</label>
-                            <input class="form-control" id="NewPasswordConfirm" asp-for="ResetPassword!.NewPasswordConfirm" />
-                            <span asp-validation-for="ResetPassword!.NewPasswordConfirm" class="text-danger"></span>
+                            <input class="form-control" id="NewPasswordConfirm" asp-for="PasswordChange!.NewPasswordConfirm" />
+                            <span asp-validation-for="PasswordChange!.NewPasswordConfirm" class="text-danger"></span>
                         </div>
                         <button class="btn btn-primary d-block w-100" type="submit">Şifre Güncelle</button>
                     </form>

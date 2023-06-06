@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Project.BLL.ManagerServices.Abstracts;
+using Project.COMMON.Extensions;
 using Project.COMMON.Tools;
 using Project.ENTITIES.Models;
 using Project.MVCUI.Extensions;
@@ -20,12 +22,14 @@ namespace Project.MVCUI.Controllers
         private readonly IAppUserProfileManager _appUserProfileManager;
         private readonly IMapper _mapper;
         private readonly IFileProvider _fileProvider;
-        public ProfileController(IAppUserManager appUserManager, IAppUserProfileManager appUserProfileManager, IMapper mapper, IFileProvider fileProvider)
+        private readonly UserManager<AppUser> _userManager;
+        public ProfileController(IAppUserManager appUserManager, IAppUserProfileManager appUserProfileManager, IMapper mapper, IFileProvider fileProvider, UserManager<AppUser> userManager)
         {
             _appUserManager = appUserManager;
             _appUserProfileManager = appUserProfileManager;
             _mapper = mapper;
             _fileProvider = fileProvider;
+            _userManager = userManager;
         }
 
         // GET: ProfileController/Details/5
@@ -61,6 +65,16 @@ namespace Project.MVCUI.Controllers
             };
             wrapper.AppUser!.Id = appUser!.Id;
             wrapper.AppUser!.AppUserProfile!.ID = appUser!.AppUserProfile!.ID;
+
+            IEnumerable<IdentityError>? identityErrors = HttpContext.Session.GetSession<IEnumerable<IdentityError>>("identityErrors");
+            if (identityErrors != null)
+            {
+                ModelState.AddModelErrorListWithOutKey(identityErrors);
+                HttpContext.Session.Remove("identityErrors");
+            }
+            else if (TempData["error"] != null) ModelState.AddModelErrorWithOutKey(TempData["error"]!.ToString()!);
+            else if (TempData["success"] != null) ModelState.AddModelErrorWithOutKey(TempData["success"]!.ToString()!);
+            //else if (TempData["success"])
 
             return View(wrapper);
         }
@@ -114,5 +128,40 @@ namespace Project.MVCUI.Controllers
             TempData["success"] = "Profil başarıyla güncellendi";
             return RedirectToAction(nameof(Details), "Profile");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ProfileEditWrapper request)
+        {
+
+            AppUser user = await _userManager.FindByNameAsync(User.Identity!.Name);
+
+            if (!ModelState.IsValid) return View();
+
+
+            if (!await _userManager.CheckPasswordAsync(user, request.PasswordChange!.FormerPassword))
+            {
+                TempData["error"] = "Eski şifreniz yanlış";
+                return RedirectToAction(nameof(Edit), "Profile", new { userName = user.UserName });
+            }
+
+            var (isSuccess, error, errors) = await _appUserManager.ChangePasswordAsync(user, request.PasswordChange!.FormerPassword, request.PasswordChange!.NewPassword);
+
+            if (!isSuccess && errors != null)
+            {
+                HttpContext.Session.SetSession("identityErrors", errors);
+
+                return RedirectToAction(nameof(Edit), "Profile", new { userName = user.UserName });
+            }
+            else if(!isSuccess && error != null)
+            {
+                TempData["error"] = error;
+                return RedirectToAction(nameof(Edit), "Profile", new { userName = user.UserName });
+            }
+
+            TempData["success"] = "Şifreniz başarıyla değiştirildi!";
+            return RedirectToAction(nameof(Details), "Profile");
+        }
+
     }
 }

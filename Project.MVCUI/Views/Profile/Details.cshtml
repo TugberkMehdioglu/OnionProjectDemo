@@ -11,6 +11,8 @@
     </div>
 }
 
+<div class="col-6 offset-3 alert alert-danger" asp-validation-summary="ModelOnly"></div>
+
 <div class="card mb-3">
 
     <div class="card-header position-relative min-vh-25 mb-7">
@@ -41,7 +43,7 @@
             <div class="card-body text-justify">
 
                 <div class="mb-0 text-1000 row">
-                        <label for="userName" class="col-form-label col-sm-2">Kullanıcı Adı :</label>
+                    <label for="userName" class="col-form-label col-sm-2">Kullanıcı Adı :</label>
                     <div class="col-sm-10 d-flex align-content-center">
                         <input class="form-control" readonly id="userName" value="@Model.UserName" />
                     </div>

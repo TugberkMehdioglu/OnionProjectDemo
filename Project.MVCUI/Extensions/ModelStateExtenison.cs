@@ -12,6 +12,13 @@ namespace Project.MVCUI.Extensions
                 modelState.AddModelError(string.Empty, error.Description);
             }
         }
+        public static void AddModelErrorListWithOutKey(this ModelStateDictionary modelState, HashSet<string> errors)
+        {
+            foreach(string error in errors)
+            {
+                modelState.AddModelError(string.Empty, error);
+            }
+        }
 
         public static void AddModelErrorListWithOutKey(this ModelStateDictionary modelState, IEnumerable<string> errors)
         {

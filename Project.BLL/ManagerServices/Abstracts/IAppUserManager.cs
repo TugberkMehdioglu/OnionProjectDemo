@@ -13,5 +13,7 @@ namespace Project.BLL.ManagerServices.Abstracts
         public Task<(bool, IEnumerable<IdentityError>?, string?)> AddUserByIdentityAsync(AppUser user);
         public Task<(bool, string?, AppUser?)> GetUserWithProfileAsync(string userName);
         public Task<(bool, string?, IEnumerable<IdentityError>?)> EditUserWithOutPictureAsync(AppUser appUser);
+
+        public Task<(bool, string?, IEnumerable<IdentityError>?)> ChangePasswordAsync(AppUser user, string formerPassword, string newPassword);
     }
 }

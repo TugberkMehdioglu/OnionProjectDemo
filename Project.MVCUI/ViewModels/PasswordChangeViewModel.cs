@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace Project.MVCUI.ViewModels
 {
-    public class ResetPasswordViewModel
+    public class PasswordChangeViewModel
     {
         [Display(Name = "Eski Şifre")]
         [Required(ErrorMessage = "{0} boş bırakılamaz")]
