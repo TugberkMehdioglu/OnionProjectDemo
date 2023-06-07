@@ -52,7 +52,7 @@
                                 @foreach (ProductViewModel item in Model)
                                 {
                                     <tr class="align-middle">
-                                        <td class="image text-center">
+                                        <td class="image text-center text-800">
                                             @if (item.ImagePath != null)
                                             {
                                                 <img lass="rounded-circle" src="~/productPictures/@(item.ImagePath!)" alt="Resim Görüntülenemiyor" style="height:100px; width:100px;" />
@@ -62,18 +62,18 @@
                                                 <img class="rounded-circle" src="~/productPictures/no-image-icon.png" alt="Resim Görüntülenemiyor" style="height:100px; width:100px;" />
                                             }
                                         </td>
-                                        <td class="name text-center">@item.Name</td>
-                                        <td class="price text-center">@item.Price.ToString("C2")</td>
-                                        <td class="category text-center">@item.Category!.Name</td>
-                                        <td class="stock text-center">@item.Stock Adet</td>
+                                        <td class="name text-center text-800">@item.Name</td>
+                                        <td class="price text-center text-800">@item.Price.ToString("C2")</td>
+                                        <td class="category text-center text-800">@item.Category!.Name</td>
+                                        <td class="stock text-center text-800">@item.Stock Adet</td>
                                         <td class="text-center">
                                             <div>
-                                                <a asp-area="Admin" asp-controller="Product" asp-action="Details" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="İncele" class="btn p-0 me-2"><span class="text-500 fas fa-eye"></span></a>
+                                                <a asp-area="Admin" asp-controller="Product" asp-action="Details" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="İncele" class="btn p-0 me-2"><span class="text-800 fas fa-eye"></span></a>
 
-                                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-500 fas fa-edit"></span></a>
+                                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn p-0"><span class="text-800 fas fa-edit"></span></a>
 
-                                                <span id="deleteCategoryId" onclick="clickMe()" data-id="@item.ID" data-bs-toggle="modal" data-bs-target="#modal5">
-                                                    <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-500 fas fa-trash-alt"></span></a>
+                                                <span id="deleteCategoryId" data-id="@item.ID" data-name="@item.Name" data-bs-toggle="modal" data-bs-target="#modal5">
+                                                    <a class="btn p-0 ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil"><span class="text-800 fas fa-trash-alt"></span></a>
                                                 </span>
                                             </div>
                                         </td>
@@ -102,7 +102,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                Mevcut kategoriyi silmek istediğinize emin misiniz?
+                
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" id="closeModal">Kapat</button>
@@ -129,6 +129,11 @@
     $(document).ready(function () {
 
         $("#myTable").on("click", "#deleteCategoryId", function () {
+
+            let name = $(this).data("name");
+            let modalBodyText = name + " ürününü silmek istediğinize emin misiniz?";
+            $(".modal-body").text(modalBodyText);
+
 
             let id = $(this).data("id");
             let row = $(this).closest("tr");
