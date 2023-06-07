@@ -129,8 +129,9 @@
                         row.hide();
                         successAlert("Kategori başarıyla silindi");
                     },
-                    error: function (error) {
+                    error: function (xhr) {
 
+                        var error = xhr.responseJSON.message;
                         successAlert(error);
                     }
                 });

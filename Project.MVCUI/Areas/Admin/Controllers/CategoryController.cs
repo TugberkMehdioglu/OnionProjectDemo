@@ -116,11 +116,12 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         public IActionResult DeleteCategory(int id)
         {
             Category? category = _categoryManager.Find(id);
-            if (category == null) return Json(new { message = "Kategori bulunamadı!" });
+            if (category == null) return StatusCode(500, new { message = "Kategori bulunamadı!" });
 
-            _categoryManager.Delete(category);
+            var (isSuccess, error) = _categoryManager.Delete(category);
+            if (!isSuccess) return StatusCode(500, new { message = error });
 
-            return Json(new { message = "Kategori başarıyla silindi" });
+            return Ok(new { message = "Kategori başarıyla silindi" });
         }
     }
 }
