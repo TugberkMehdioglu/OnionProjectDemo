@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Project.BLL.ManagerServices.Abstracts;
 using Project.COMMON.Extensions;
+using Project.COMMON.Tools;
 using Project.ENTITIES.Models;
 using Project.MVCUI.Extensions;
 using Project.MVCUI.ViewModels;
@@ -102,6 +103,94 @@ namespace Project.MVCUI.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        public IActionResult ForgetPassword()
+        {
+            if (TempData["resetPasswordAlert"] != null) ModelState.AddModelErrorWithOutKey(TempData["resetPasswordAlert"]!.ToString()!);
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel request)
+        {
+            ModelState.Remove("NewPassword");
+            ModelState.Remove("NewPasswordConfirm");
+            if (!ModelState.IsValid) return View();
+
+            AppUser? appUser = await _userManager.FindByEmailAsync(request.Email);
+            if(appUser == null)
+            {
+                ModelState.AddModelErrorWithOutKey("Bu email adresine sahip kullanıcı bulunamadı");
+                return View();
+            }
+
+            string passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(appUser!);
+
+            string passwordResetLink = Url.Action("ResetPassword", "Home", new { userId = appUser!.Id, token = passwordResetToken }, HttpContext.Request.Scheme)!;
+
+            string emailBody = $"Şifre sıfırlama talebiniz alınmıştır. Şifrenizi sıfırlamak için <a href='{passwordResetLink}'>buraya tıklayabilirsiniz.</a>";
+
+            MailService.SendMailAsync(request.Email, emailBody, "Şifre Sıfırlama | Onion Project");
+            TempData["success"] = "Şifre sıfırlama linki email adresinize gönderilmiştir";
+            return View();
+        }
+
+        public IActionResult ResetPassword(string? userId, string? token)
+        {
+            if (userId == null || token == null)
+            {
+                TempData["resetPasswordAlert"] = "Geçersiz kullanıcı yada zaman aşımı gerçekleşti!";
+                return RedirectToAction(nameof(ForgetPassword));
+            }
+
+            TempData["userId"] = userId;
+            TempData["token"] = token;
+
+            IEnumerable<IdentityError>? errors = HttpContext.Session.GetSession<IEnumerable<IdentityError>>("resetPasswordAlerts");
+            if (errors != null)
+            {
+                ModelState.AddModelErrorListWithOutKey(errors);
+                HttpContext.Session.Remove("resetPasswordAlerts");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ForgetPasswordViewModel request)
+        {
+            ModelState.Remove("Email");
+            if (!ModelState.IsValid) return View();
+
+            var userId = TempData["userId"];
+            var token = TempData["token"];
+
+            if(userId == null || token == null)
+            {
+                TempData["resetPasswordAlert"] = "Geçersiz kullanıcı yada zaman aşımı gerçekleşti!";
+                return RedirectToAction(nameof(ForgetPassword));
+            }
+
+            AppUser? appUser = await _userManager.FindByIdAsync(userId.ToString());
+            if(appUser == null)
+            {
+                TempData["resetPasswordAlert"] = "Kullanıcı bulunamadı";
+                return RedirectToAction(nameof(ForgetPassword));
+            }
+
+            IdentityResult result = await _userManager.ResetPasswordAsync(appUser, token.ToString(), request.NewPassword);
+            if(!result.Succeeded)
+            {
+                HttpContext.Session.SetSession("resetPasswordAlerts", result.Errors);
+                return RedirectToAction(nameof(ResetPassword), "Home", new { userId = userId!, token = token! });
+            }
+
+            TempData["success"] = "Şifreniz başarıyla yenilendi!";
+            return RedirectToAction(nameof(Login));
         }
     }
 }
