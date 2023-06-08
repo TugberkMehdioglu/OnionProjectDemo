@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Project.ENTITIES.Models;
+using Project.MVCUI.Areas.Admin.AdminViewModels;
 using Project.MVCUI.ViewModels;
 
 namespace Project.MVCUI.Mapping
