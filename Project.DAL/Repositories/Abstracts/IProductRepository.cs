@@ -13,5 +13,6 @@ namespace Project.DAL.Repositories.Abstracts
         public List<Product> GetActivesWithCategories();
         public List<Product> GetProductsWithCategories(Expression<Func<Product, bool>> whereExpression);
         public Product? GetActiveProductWithCategory(int id);
+        public IQueryable<Product> GetActiveQueryableProducts();
     }
 }

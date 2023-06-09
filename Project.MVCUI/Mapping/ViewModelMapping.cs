@@ -15,7 +15,8 @@ namespace Project.MVCUI.Mapping
 
             CreateMap<AppUserProfile, AppUserProfileViewModel>().ReverseMap();
             CreateMap<Category, CategoryViewModel>().ReverseMap();
-            CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<Product, ProductViewModel>().ReverseMap()
+                .ForMember(x => x.Category, opt => opt.Ignore());
         }
     }
 }

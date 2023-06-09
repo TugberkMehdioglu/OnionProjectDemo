@@ -13,5 +13,6 @@ namespace Project.BLL.ManagerServices.Abstracts
         public (bool, string?, List<Product>?) GetActivesWithCategories();
         public (bool, string?, List<Product>?) GetProductsWithCategories(Expression<Func<Product, bool>> whereExpression);
         public (bool, string?, Product?) GetActiveProductWithCategory(int id);
+        public IQueryable<Product> GetActiveQueryableProducts();
     }
 }

@@ -40,7 +40,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         {
             if(id != null)
             {
-                var (Success, error1, products1) = _productManager.GetProductsWithCategories(x => x.CategoryID == id);
+                var (Success, error1, products1) = _productManager.GetProductsWithCategories(x => x.CategoryID == id && x.Status != DataStatus.Deleted);
                 if (Success == false)
                 {
                     ModelState.AddModelErrorWithOutKey(error1!);
@@ -146,6 +146,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             }
             ProductViewModel productViewModel = _mapper.Map<ProductViewModel>(product);
             productViewModel.FormerName = product.Name;
+            productViewModel.FormerImagePath = product.ImagePath;
 
             HashSet<CategoryViewModel> categories = _categoryManager.GetActives().Select(x => new CategoryViewModel()
             {
@@ -172,6 +173,8 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                 return View(request);
             }
 
+            Product product = _mapper.Map<Product>(request);
+
             if (request.Image != null && request.Image.Length > 0)
             {
                 string? result = ImageUploader.UploadImageToProduct(request.Image!, _fileProvider, out string? entityImagePath);
@@ -179,12 +182,13 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                 {
                     ModelState.AddModelErrorWithOutKey(result);
                     AddCategoriesForProduct();
-                    return View();
+                    return View(request);
                 }
-                request.ImagePath = entityImagePath;
+                product.ImagePath = entityImagePath;
             }
+            else product.ImagePath = request.FormerImagePath;
 
-            var (isSuccess, error) = _productManager.Update(_mapper.Map<Product>(request));
+            var (isSuccess, error) = _productManager.Update(product);
             if (isSuccess == false)
             {
                 ModelState.AddModelErrorWithOutKey(error!);

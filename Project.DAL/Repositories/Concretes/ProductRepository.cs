@@ -23,5 +23,7 @@ namespace Project.DAL.Repositories.Concretes
         public List<Product> GetProductsWithCategories(Expression<Func<Product, bool>> whereExpression) => _context.Products!.Where(whereExpression).Include(x => x.Category).ToList();
 
         public Product? GetActiveProductWithCategory(int id) => _context.Products!.Where(x => x.ID == id && x.Status != DataStatus.Deleted).Include(x => x.Category).FirstOrDefault();
+
+        public IQueryable<Product> GetActiveQueryableProducts() => _context.Products!.Where(x => x.Status != DataStatus.Deleted);
     }
 }

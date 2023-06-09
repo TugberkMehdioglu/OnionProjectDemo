@@ -65,5 +65,7 @@ namespace Project.BLL.ManagerServices.Concretes
 
             return (true, null, product);
         }
+
+        public IQueryable<Product> GetActiveQueryableProducts() => _productRepository.GetActiveQueryableProducts();
     }
 }

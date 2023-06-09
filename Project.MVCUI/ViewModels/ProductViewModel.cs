@@ -28,6 +28,7 @@ namespace Project.MVCUI.ViewModels
 
         [ValidateNever]
         public string? ImagePath { get; set; }
+        public string? FormerImagePath { get; set; }
 
         [ValidateNever]
         public IFormFile? Image { get; set; }
@@ -35,6 +36,7 @@ namespace Project.MVCUI.ViewModels
         [Display(Name = "Kategori")]
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz")]
         public int CategoryID { get; set; }
+        public string? CategoryName { get; set; }
 
         public CategoryViewModel? Category { get; set; }
 
