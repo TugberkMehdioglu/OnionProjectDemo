@@ -21,6 +21,9 @@ namespace Project.MVCUI.Controllers
             _orderDetailManager = orderDetailManager;
         }
 
+        [Route("/")]
+        [Route("/Home")]
+        [Route("/Shopping/ShoppingList")]
         [HttpGet("{categoryID?}/{pageNumber?}/{pageSize?}")]
         public async Task<IActionResult> ShoppingList(int? categoryID, int pageNumber = 1, int pageSize = 9)
         {

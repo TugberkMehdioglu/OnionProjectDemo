@@ -11,25 +11,19 @@
 
 <div class="card mb-3">
     <div class="card-body">
-        <div class="row flex-between-center">
-            <div class="col-sm-auto mb-2 mb-sm-0">
-                <h6 class="mb-0">Showing 1-24 of 205 Products</h6>
-            </div>
-            <div class="col-sm-auto">
-                <div class="row gx-2 align-items-center">
-                    <div class="col-auto">
-                        <nav class="d-flex justify-content-end mt-3">
-                            <ul class="pagination">
-                                @for (int page = 1; page <= ViewBag.totalPagesCount; page++)
-                                {
-                                    <li class="page-item @(page == ViewBag.pageNumber ? "active" : "")">
-                                        <a class="page-link" asp-controller="Shopping" asp-action="ShoppingList" asp-route-categoryID="@(ViewBag.CategoryID??"null")" asp-route-pageNumber="@(page)">@(page)</a>
-                                    </li>
-                                }
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-auto pe-0"> <a class="text-600 px-1" href="~/OuterTools/app/e-commerce/product/product-list.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Product List"><span class="fas fa-list-ul"></span></a></div>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="row gx-2 align-items-center mx-auto">
+                    <nav class="d-flex justify-content-center mt-3">
+                        <ul class="pagination">
+                            @for (int page = 1; page <= ViewBag.totalPagesCount; page++)
+                            {
+                                <li class="page-item @(page == ViewBag.pageNumber ? "active" : "")">
+                                    <a class="page-link" asp-controller="Shopping" asp-action="ShoppingList" asp-route-categoryID="@(ViewBag.CategoryID??"null")" asp-route-pageNumber="@(page)">@(page)</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -44,8 +38,8 @@
                 <div class="mb-4 col-md-6 col-lg-4">
                     <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
                         <div class="overflow-hidden">
-                            <div class="position-relative rounded-top overflow-hidden">
-                                <a class="d-block" href="~/OuterTools/app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="~/productPictures/@(item.ImagePath??"no-image-icon.png")" alt="Resim Yüklenemedi" /></a>
+                            <div class="position-relative rounded-top overflow-hidden d-flex align-items-center justify-content-center">
+                                <a class="d-block" href="~/OuterTools/app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="~/productPictures/@(item.ImagePath??"no-image-icon.png")" alt="Resim Yüklenemedi" style="max-width:300px; max-height:300px;" /></a>
                             </div>
                             <div class="p-3">
                                 <h5 class="fs-0"><a class="text-dark" href="~/OuterTools/app/e-commerce/product/product-details.html">@item.Name</a></h5>
@@ -58,7 +52,7 @@
                                     {
                                         <strong class="text-success">Var</strong>
                                     }
-                                    else if(item.Stock > 0)
+                                    else if (item.Stock > 0)
                                     {
                                         <strong class="text-warning">Acele et tükeniyor</strong>
                                     }
@@ -82,8 +76,16 @@
     </div>
     <div class="card-footer bg-light d-flex justify-content-center">
         <div>
-            <button class="btn btn-falcon-default btn-sm me-2" type="button" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev"><span class="fas fa-chevron-left"></span></button><a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a><a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a><a class="btn btn-sm btn-falcon-default me-2" href="#!"> <span class="fas fa-ellipsis-h"></span></a><a class="btn btn-sm btn-falcon-default me-2" href="#!">35</a>
-            <button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next"><span class="fas fa-chevron-right">     </span></button>
+            <nav class="d-flex justify-content-center mt-3">
+                <ul class="pagination">
+                    @for (int page = 1; page <= ViewBag.totalPagesCount; page++)
+                    {
+                        <li class="page-item @(page == ViewBag.pageNumber ? "active" : "")">
+                            <a class="page-link" asp-controller="Shopping" asp-action="ShoppingList" asp-route-categoryID="@(ViewBag.CategoryID??"null")" asp-route-pageNumber="@(page)">@(page)</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

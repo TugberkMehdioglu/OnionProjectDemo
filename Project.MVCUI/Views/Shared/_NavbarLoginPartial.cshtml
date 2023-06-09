@@ -35,20 +35,22 @@
 
                     <a class="dropdown-item" href="/Admin/Product/Index">Ürünler</a>
                     //Örn. Id'si 2 olan kategorinin ürünlerine bak dediğimde Category.Index action'daki rout'a /2 koyup gidiyor, o rout'dayken Ürünler a tag'ine tıklarsam sanki bu tag'i route'larken id koyup onada 2 vermişim gibi URL'de yazan route'a aynen götürüyor beni(asp-admin asp-controller asp-action verdiğim durumda), bunun olmaması için direkt href attribute'u verdim ve düzeldi sorun.
+                    <a class="dropdown-item" asp-controller="User" asp-action="UserList" asp-area="Admin">Kullanıcılar</a>
+
+
 
                     <a class="dropdown-item" asp-controller="Role" asp-action="Index" asp-area="Admin">Roller</a>
 
-                    <a class="dropdown-item" asp-controller="User" asp-action="UserList" asp-area="Admin">Kullanıcılar</a>
 
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Admin Panel</a>
 
-                    <a class="dropdown-item" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                    <a class="dropdown-item" asp-controller="Shopping" asp-action="ShoppingList">Ana Sayfa</a>
                 }
 
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" asp-controller="Home" asp-action="LogOut" asp-route-returnUrl="/Home/Index">Çıkış yap</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action="LogOut" asp-route-returnUrl="/Shopping/ShoppingList">Çıkış yap</a>
             </div>
         </div>
     </li>
