@@ -72,5 +72,11 @@ namespace Project.MVCUI.Controllers
 
             return View(wrapper);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult AddToCart(int id)
+        {
+            return View();
+        }
     }
 }

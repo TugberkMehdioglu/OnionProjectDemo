@@ -19,7 +19,7 @@
 
                 <h5>@Model.Name</h5><a class="fs--1 mb-2 d-block" asp-area="Admin" asp-controller="Category" asp-action="Index" asp-route-id=@Model.CategoryID>@Model.Category!.Name</a>
 
-                <p class="fs--1">@Model.Category.Description</p>
+                <p class="fs--1">@Model.Category!.Description</p>
 
                 <h4 class="d-flex align-items-center">
                     <span class="text-warning me-2">@Model.Stock.ToString("C2")</span><span class="me-1 fs--1 text-500"></span>
