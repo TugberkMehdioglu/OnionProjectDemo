@@ -9,5 +9,6 @@ namespace Project.BLL.ManagerServices.Abstracts
 {
     public interface ICategoryManager : IManager<Category>
     {
+        public IQueryable<Category> GetActiveQueryableCategories();
     }
 }

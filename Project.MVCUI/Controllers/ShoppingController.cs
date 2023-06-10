@@ -61,7 +61,12 @@ namespace Project.MVCUI.Controllers
                 }).ToList()
             };
 
-            
+            wrapper.Categories = _categoryManager.GetActiveQueryableCategories().Select(x => new CategoryViewModel()
+            {
+                ID = x.ID,
+                Name = x.Name
+            }).ToHashSet();
+
             ViewBag.totalPagesCount = (int)Math.Ceiling((double)totalItemsCount / pageSize);
             ViewBag.pageNumber = pageNumber;
 

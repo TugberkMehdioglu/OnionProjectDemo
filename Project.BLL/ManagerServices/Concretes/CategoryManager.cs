@@ -11,8 +11,12 @@ namespace Project.BLL.ManagerServices.Concretes
 {
     public class CategoryManager : BaseManager<Category>, ICategoryManager
     {
-        public CategoryManager(IRepository<Category> repository) : base(repository)
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryManager(IRepository<Category> repository, ICategoryRepository categoryRepository) : base(repository)
         {
+            _categoryRepository = categoryRepository;
         }
+
+        public IQueryable<Category> GetActiveQueryableCategories() => _categoryRepository.GetActiveQueryableCategories();
     }
 }

@@ -9,5 +9,6 @@ namespace Project.DAL.Repositories.Abstracts
 {
     public interface ICategoryRepository : IRepository<Category>
     {
+        public IQueryable<Category> GetActiveQueryableCategories();
     }
 }
