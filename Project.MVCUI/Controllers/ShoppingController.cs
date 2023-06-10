@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.BLL.ManagerServices.Abstracts;
+using Project.COMMON.Extensions;
+using Project.ENTITIES.Models;
+using Project.MVCUI.Models.ShoppingTools;
 using Project.MVCUI.ViewModels;
 using Project.MVCUI.ViewModels.WrapperClasses;
 
@@ -76,7 +79,23 @@ namespace Project.MVCUI.Controllers
         [HttpGet("{id}")]
         public IActionResult AddToCart(int id)
         {
-            return View();
+            Cart? basket = HttpContext.Session.GetSession<Cart>("basket");
+            if (basket == null) basket = new Cart();
+
+            Product toBeAdded = _productManager.Find(id)!;
+
+            CartItem cartItem = new()
+            {
+                ID = toBeAdded.ID,
+                Name = toBeAdded.Name,
+                Price = toBeAdded.Price,
+                ImagePath = toBeAdded.ImagePath
+            };
+            basket.AddToBasket(cartItem);
+            HttpContext.Session.SetSession("basket", basket);
+
+            TempData["success"] = "Ürün sepete eklendi";
+            return RedirectToAction(nameof(ShoppingList));
         }
     }
 }
