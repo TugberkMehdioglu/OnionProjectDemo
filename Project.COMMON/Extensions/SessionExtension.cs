@@ -21,7 +21,14 @@ namespace Project.COMMON.Extensions
             string? stringSession = session.GetString(key);
             if (string.IsNullOrEmpty(stringSession)) return null;
 
-            return JsonConvert.DeserializeObject<T>(stringSession);
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(stringSession);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }
