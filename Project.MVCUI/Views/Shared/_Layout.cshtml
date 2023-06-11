@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Project.COMMON.Extensions;
+@using Project.MVCUI.Models.ShoppingTools;
+
+<!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
 <head>
@@ -109,7 +112,7 @@
                                         <span class="nav-link-icon"><span class="fas fa-store-alt"></span></span><span class="nav-link-text ps-1">Mağaza</span>
                                     </div>
                                 </a>
-                                <!-- parent pages--><a class="nav-link" asp-controller="Profile" asp-action="Details" role="button" aria-expanded="false">
+                                <!-- parent pages--><a class="nav-link" asp-controller="Shopping" asp-action="CartPage" role="button" aria-expanded="false">
                                     <div class="d-flex align-items-center">
                                         <span class="nav-link-icon"><span class="fas fa-shopping-basket"></span></span><span class="nav-link-text ps-1">Sepetim</span>
                                     </div>
@@ -208,8 +211,19 @@
                                 <label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Gece moduna geç"><span class="fas fa-moon fs-0"></span></label>
                             </div>
                         </li>
+                        @{
+                            Cart? cart = Context.Session.GetSession<Cart>("cart");
+                        }
                         <li class="nav-item">
-                            <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" asp-controller="Shopping" asp-action="CartPage"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
+                            <a class="nav-link px-0 notification-indicator @(cart!=null?"notification-indicator-warning":"")  notification-indicator-fill fa-icon-wait" asp-controller="Shopping" asp-action="CartPage">
+                                <span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span>
+                                @{
+                                    if(cart != null)
+                                    {
+                                        <span class="notification-indicator-number">@cart.Basket.Count</span>
+                                    }
+                                }
+                                </a>
 
                         </li>
                         

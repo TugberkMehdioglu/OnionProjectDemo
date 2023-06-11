@@ -15,6 +15,13 @@
     </div>
 }
 
+@if (TempData["success"] != null)
+{
+    <div class="col-6 offset-3">
+        <partial name="_AlertSuccessPartial" model="@(TempData["success"]!.ToString())"></partial>
+    </div>
+}
+
 <div class="card mb-3">
     <div class="card-body">
         <div class="mx-auto">

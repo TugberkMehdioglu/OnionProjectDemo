@@ -79,7 +79,7 @@ namespace Project.MVCUI.Controllers
         public IActionResult CartPage()
         {
             //Todo:Create view of this action
-            Cart? basket = HttpContext.Session.GetSession<Cart>("basket");
+            Cart? basket = HttpContext.Session.GetSession<Cart>("cart");
             if(basket == null)
             {
                 TempData["fail"] = "Sepetinizde ürün bulunmamaktadır!";
@@ -97,7 +97,7 @@ namespace Project.MVCUI.Controllers
         [HttpGet("{id}")]
         public IActionResult AddToCart(int id)
         {
-            Cart? basket = HttpContext.Session.GetSession<Cart>("basket");
+            Cart? basket = HttpContext.Session.GetSession<Cart>("cart");
             if (basket == null) basket = new Cart();
 
             Product toBeAdded = _productManager.Find(id)!;
@@ -110,7 +110,7 @@ namespace Project.MVCUI.Controllers
                 ImagePath = toBeAdded.ImagePath
             };
             basket.AddToBasket(cartItem);
-            HttpContext.Session.SetSession("basket", basket);
+            HttpContext.Session.SetSession("cart", basket);
 
             TempData["success"] = "Ürün sepete eklendi";
             return RedirectToAction(nameof(ShoppingList));
