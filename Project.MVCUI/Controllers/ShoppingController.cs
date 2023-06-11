@@ -76,6 +76,24 @@ namespace Project.MVCUI.Controllers
             return View(wrapper);
         }
 
+        public IActionResult CartPage()
+        {
+            //Todo:Create view of this action
+            Cart? basket = HttpContext.Session.GetSession<Cart>("basket");
+            if(basket == null)
+            {
+                TempData["fail"] = "Sepetinizde ürün bulunmamaktadır!";
+                return RedirectToAction(nameof(ShoppingList));
+            }
+
+            CardPageViewModel cardPageViewModel = new CardPageViewModel()
+            {
+                Cart = basket as Cart
+            };
+
+            return View(cardPageViewModel);
+        }
+
         [HttpGet("{id}")]
         public IActionResult AddToCart(int id)
         {
