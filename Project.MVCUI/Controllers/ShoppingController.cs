@@ -79,7 +79,6 @@ namespace Project.MVCUI.Controllers
 
         public IActionResult CartPage()
         {
-            //Todo:Create view of this action
             Cart? basket = HttpContext.Session.GetSession<Cart>("cart");
             if(basket == null)
             {
