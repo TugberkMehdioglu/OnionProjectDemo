@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Project.BLL.ManagerServices.Abstracts;
 using Project.COMMON.Extensions;
+using Project.ENTITIES.Enums;
 using Project.ENTITIES.Models;
 using Project.MVCUI.Models.ShoppingTools;
 using Project.MVCUI.ViewModels;
@@ -94,8 +95,8 @@ namespace Project.MVCUI.Controllers
             return View(cardPageViewModel);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult AddToCart(int id)
+        [HttpGet("{id}/{from?}")]
+        public IActionResult AddToCart(int id, string? from)
         {
             Cart? basket = HttpContext.Session.GetSession<Cart>("cart");
             if (basket == null) basket = new Cart();
@@ -112,8 +113,56 @@ namespace Project.MVCUI.Controllers
             basket.AddToBasket(cartItem);
             HttpContext.Session.SetSession("cart", basket);
 
+
             TempData["success"] = "Ürün sepete eklendi";
+            if (from != null && from == "cart") return RedirectToAction(nameof(CartPage));
             return RedirectToAction(nameof(ShoppingList));
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult DeleteFromCart(int id)
+        {
+            Cart? basket = HttpContext.Session.GetSession<Cart>("cart");
+
+            if (basket == null) return RedirectToAction(nameof(ShoppingList));
+            if (!basket.Basket.Any(x => x.ID == id)) return RedirectToAction(nameof(ShoppingList));
+
+            basket.RemoveFromBasket(id);
+
+            if (!basket.Basket.Any())
+            {
+                HttpContext.Session.Remove("cart");
+                TempData["fail"] = "Sepetinizde ürün bulunmamaktadır!";
+                return RedirectToAction(nameof(ShoppingList));
+            }
+
+            HttpContext.Session.SetSession("cart", basket);
+
+            TempData["success"] = "Ürün sepetten silindi";
+            return RedirectToAction(nameof(CartPage));
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult DeleteProductWithAllAmountFromCart(int id)
+        {
+            Cart? basket = HttpContext.Session.GetSession<Cart>("cart");
+
+            if (basket == null) return RedirectToAction(nameof(ShoppingList));
+            if (!basket.Basket.Any(x => x.ID == id)) return RedirectToAction(nameof(ShoppingList));
+
+            basket.RemoveItemWithAllAmountFromBasket(id);
+
+            if (!basket.Basket.Any())
+            {
+                HttpContext.Session.Remove("cart");
+                TempData["fail"] = "Sepetinizde ürün bulunmamaktadır!";
+                return RedirectToAction(nameof(ShoppingList));
+            }
+
+            HttpContext.Session.SetSession("cart", basket);
+
+            TempData["success"] = "Ürün sepetten silindi";
+            return RedirectToAction(nameof(CartPage));
         }
     }
 }

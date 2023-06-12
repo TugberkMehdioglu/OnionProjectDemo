@@ -4,6 +4,14 @@
     ViewData["Title"] = "CartPage";
 }
 
+@if (TempData["success"] != null)
+{
+    <div class="col-6 offset-3">
+        <partial name="_AlertSuccessPartial" model="@(TempData["success"]!.ToString())"></partial>
+    </div>
+}
+
+
 <div class="card">
     <div class="card-header">
         <div class="row justify-content-between">
@@ -31,7 +39,7 @@
                         <a href="../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-1 me-3 d-none d-md-block" src="~/productPictures/@(item.ImagePath??"no-image-icon.png")" alt=""  style="max-width:60px;" /></a>
                         <div class="flex-1">
                             <h5 class="fs-0"><a class="text-900" href="../../app/e-commerce/product/product-details.html">@item.Name</a></h5>
-                            <div class="fs--2 fs-md--1"><a class="text-danger" href="#!">Remove</a></div>
+                            <div class="fs--2 fs-md--1"><a class="text-danger" asp-controller="Shopping" asp-action="DeleteProductWithAllAmountFromCart" asp-route-id="@item.ID">Sepetten sil</a></div>
                         </div>
                     </div>
                 </div>
@@ -40,9 +48,9 @@
                         <div class="col-md-8 d-flex justify-content-end justify-content-md-center order-1 order-md-0">
                             <div>
                                 <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity">
-                                    <button class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="minus">-</button>
+                                    <a class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="minus" asp-controller="Shopping" asp-action="DeleteFromCart" asp-route-id="@item.ID">-</a>
                                     <input class="form-control text-center px-2 input-spin-none" type="number" min="1" value="@item.Amount" aria-label="Amount (to the nearest dollar)" style="width: 50px" />
-                                    <button class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="plus">+</button>
+                                    <a class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="plus" asp-controller="Shopping" asp-action="AddToCart" asp-route-id="@item.ID" asp-route-from="cart">+</a>
                                 </div>
                             </div>
                         </div>

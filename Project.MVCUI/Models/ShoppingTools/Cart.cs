@@ -41,5 +41,10 @@ namespace Project.MVCUI.Models.ShoppingTools
             }
             _basket.Remove(id);
         }
+
+        public void RemoveItemWithAllAmountFromBasket(int id)
+        {
+            _basket.Remove(id);
+        }
     }
 }
