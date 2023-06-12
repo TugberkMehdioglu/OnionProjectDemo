@@ -19,6 +19,9 @@ namespace Project.MVCUI.Models.ShoppingTools
         [JsonProperty]
         public decimal TotalPrice { get { return _basket.Sum(x => x.Value.SubTotal); } }
 
+        [JsonProperty]
+        public int TotalItemCount => _basket.Sum(x => x.Value.Amount);
+
         public void AddToBasket(CartItem item)
         {
             if (_basket.ContainsKey(item.ID))
