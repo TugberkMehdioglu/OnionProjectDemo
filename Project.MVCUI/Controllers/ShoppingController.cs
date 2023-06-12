@@ -95,8 +95,8 @@ namespace Project.MVCUI.Controllers
             return View(cardPageViewModel);
         }
 
-        [HttpGet("{id}/{from?}")]
-        public IActionResult AddToCart(int id, string? from)
+        [HttpGet("{id}/{categoryID?}/{pageNumber?}/{from?}")]
+        public IActionResult AddToCart(int id, int? categoryID, int? pageNumber, string? from)
         {
             Cart? basket = HttpContext.Session.GetSession<Cart>("cart");
             if (basket == null) basket = new Cart();
@@ -116,7 +116,7 @@ namespace Project.MVCUI.Controllers
 
             TempData["success"] = "Ürün sepete eklendi";
             if (from != null && from == "cart") return RedirectToAction(nameof(CartPage));
-            return RedirectToAction(nameof(ShoppingList));
+            return RedirectToAction(nameof(ShoppingList), new { categoryID = categoryID, pageNumber = pageNumber });
         }
 
         [HttpGet("{id}")]
