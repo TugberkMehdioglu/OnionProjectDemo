@@ -64,10 +64,10 @@
                     <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
                         <div class="overflow-hidden">
                             <div class="position-relative rounded-top overflow-hidden d-flex align-items-center justify-content-center">
-                                <a class="d-block" href="~/OuterTools/app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="~/productPictures/@(item.ImagePath??"no-image-icon.png")" alt="Resim Yüklenemedi" style="max-width:300px; max-height:300px;" /></a>
+                                <a class="d-block" asp-controller="Shopping" asp-action="ProductDetail" asp-route-id="@item.ID"><img class="img-fluid rounded-top" src="~/productPictures/@(item.ImagePath??"no-image-icon.png")" alt="Resim Yüklenemedi" style="max-width:300px; max-height:300px;" /></a>
                             </div>
                             <div class="p-3">
-                                <h5 class="fs-0"><a class="text-dark" href="~/OuterTools/app/e-commerce/product/product-details.html">@item.Name</a></h5>
+                                <h5 class="fs-0"><a class="text-dark" asp-controller="Shopping" asp-action="ProductDetail" asp-route-id="@item.ID">@item.Name</a></h5>
                                 <p class="fs--1 mb-3"><a class="text-500" asp-controller="Shopping" asp-action="ShoppingList" asp-route-categoryID="@item.CategoryID">@item.CategoryName</a></p>
                                 <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3">
                                     @item.Price.ToString("C2")

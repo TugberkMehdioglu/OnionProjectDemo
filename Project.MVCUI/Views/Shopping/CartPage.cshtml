@@ -50,7 +50,7 @@
                                 <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity">
                                     <a class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="minus" asp-controller="Shopping" asp-action="DeleteFromCart" asp-route-id="@item.ID">-</a>
                                     <input class="form-control text-center px-2 input-spin-none" type="number" min="1" value="@item.Amount" aria-label="Amount (to the nearest dollar)" style="width: 50px" />
-                                    <a class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="plus" asp-controller="Shopping" asp-action="AddToCart" asp-route-id="@item.ID" asp-route-from="cart">+</a>
+                                    <a class="btn btn-sm btn-outline-secondary border-300 px-2" data-type="plus" asp-controller="Shopping" asp-action="AddToCart" asp-route-id="@item.ID" asp-route-categoryID="null" asp-route-pageNumber="null" asp-route-from="cart">+</a>
                                 </div>
                             </div>
                         </div>

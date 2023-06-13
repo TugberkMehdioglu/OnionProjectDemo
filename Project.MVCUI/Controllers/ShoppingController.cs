@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.BLL.ManagerServices.Abstracts;
 using Project.COMMON.Extensions;
@@ -17,12 +18,14 @@ namespace Project.MVCUI.Controllers
         private readonly IProductManager _productManager;
         private readonly ICategoryManager _categoryManager;
         private readonly IOrderDetailManager _orderDetailManager;
-        public ShoppingController(IOrderManager orderManager, IProductManager productManager, ICategoryManager categoryManager, IOrderDetailManager orderDetailManager)
+        private readonly IMapper _mapper;
+        public ShoppingController(IOrderManager orderManager, IProductManager productManager, ICategoryManager categoryManager, IOrderDetailManager orderDetailManager, IMapper mapper)
         {
             _orderManager = orderManager;
             _productManager = productManager;
             _categoryManager = categoryManager;
             _orderDetailManager = orderDetailManager;
+            _mapper = mapper;
         }
 
         [Route("/")]
@@ -115,6 +118,7 @@ namespace Project.MVCUI.Controllers
 
             TempData["success"] = "Ürün sepete eklendi";
             if (from != null && from == "cart") return RedirectToAction(nameof(CartPage));
+            else if (from != null && from == "ProductDetail") return RedirectToAction(nameof(ProductDetail), new { id });
             return RedirectToAction(nameof(ShoppingList), new { categoryID = categoryID, pageNumber = pageNumber });
         }
 
@@ -162,6 +166,21 @@ namespace Project.MVCUI.Controllers
 
             TempData["success"] = "Ürün sepetten silindi";
             return RedirectToAction(nameof(CartPage));
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult ProductDetail(int id)
+        {
+            var (isSuccess, error, product) = _productManager.GetActiveProductWithCategory(id);
+            if (!isSuccess)
+            {
+                TempData["fail"] = error;
+                return RedirectToAction(nameof(ShoppingList));
+            }
+
+            ProductViewModel viewModel = _mapper.Map<ProductViewModel>(product);
+
+            return View(viewModel);
         }
     }
 }
