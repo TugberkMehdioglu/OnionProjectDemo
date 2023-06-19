@@ -18,7 +18,7 @@
             <div class="col-md-auto">
                 <h5 class="mb-3 mb-md-0">Sepetim (@Model.Cart.TotalItemCount)</h5>
             </div>
-            <div class="col-md-auto"><a class="btn btn-sm btn-outline-secondary border-300 me-2" asp-controller="Shopping" asp-action="ShoppingList"> <span class="fas fa-chevron-left me-1" data-fa-transform="shrink-4"></span>Alışverişe Devam Et</a><a class="btn btn-sm btn-primary" href="~/OuterTools/app/e-commerce/checkout.html">Siparişi Tamamla</a></div>
+            <div class="col-md-auto"><a class="btn btn-sm btn-outline-secondary border-300 me-2" asp-controller="Shopping" asp-action="ShoppingList"> <span class="fas fa-chevron-left me-1" data-fa-transform="shrink-4"></span>Alışverişe Devam Et</a><a class="btn btn-sm btn-primary" asp-controller="Shopping" asp-action="ConfirmOrder">Siparişi Tamamla</a></div>
         </div>
     </div>
     <div class="card-body p-0">
@@ -72,7 +72,7 @@
     </div>
 
     <div class="card-footer bg-light d-flex justify-content-end">
-        <div class="col-md-auto"><a class="btn btn-sm btn-outline-secondary border-300 me-2" asp-controller="Shopping" asp-action="ShoppingList"> <span class="fas fa-chevron-left me-1" data-fa-transform="shrink-4"></span>Alışverişe Devam Et</a><a class="btn btn-sm btn-primary" href="~/OuterTools/app/e-commerce/checkout.html">Siparişi Tamamla</a></div>
+        <div class="col-md-auto"><a class="btn btn-sm btn-outline-secondary border-300 me-2" asp-controller="Shopping" asp-action="ShoppingList"> <span class="fas fa-chevron-left me-1" data-fa-transform="shrink-4"></span>Alışverişe Devam Et</a><a class="btn btn-sm btn-primary" asp-controller="Shopping" asp-action="ConfirmOrder">Siparişi Tamamla</a></div>
     </div>
 
 </div>

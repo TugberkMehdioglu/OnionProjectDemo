@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.BLL.ManagerServices.Abstracts;
@@ -19,13 +21,19 @@ namespace Project.MVCUI.Controllers
         private readonly ICategoryManager _categoryManager;
         private readonly IOrderDetailManager _orderDetailManager;
         private readonly IMapper _mapper;
-        public ShoppingController(IOrderManager orderManager, IProductManager productManager, ICategoryManager categoryManager, IOrderDetailManager orderDetailManager, IMapper mapper)
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IAppUserManager _appUserManager;
+        private readonly IAppUserProfileManager _appUserProfileManager;
+        public ShoppingController(IOrderManager orderManager, IProductManager productManager, ICategoryManager categoryManager, IOrderDetailManager orderDetailManager, IMapper mapper, UserManager<AppUser> userManager, IAppUserManager appUserManager, IAppUserProfileManager appUserProfileManager)
         {
             _orderManager = orderManager;
             _productManager = productManager;
             _categoryManager = categoryManager;
             _orderDetailManager = orderDetailManager;
             _mapper = mapper;
+            _userManager = userManager;
+            _appUserManager = appUserManager;
+            _appUserProfileManager = appUserProfileManager;
         }
 
         [Route("/")]
@@ -95,6 +103,36 @@ namespace Project.MVCUI.Controllers
             };
 
             return View(cardPageViewModel);
+        }
+
+        
+        public IActionResult ConfirmOrder()
+        {
+            if(User.Identity?.Name == null)
+            {
+                TempData["success"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekmektedir.";
+                return Challenge();
+            }
+
+            AppUser appUser = _appUserManager.Where(x => x.UserName == User.Identity.Name).Select(x => new AppUser() { Id = x.Id, PhoneNumber = x.PhoneNumber }).FirstOrDefault()!;
+            AppUserProfile appUserProfile = _appUserProfileManager.FindByString(appUser.Id)!;
+
+            OrderWrapper wrapper = new()
+            {
+                AppUser = _mapper.Map<AppUserViewModel>(appUser),
+                AppUserProfile = _mapper.Map<AppUserProfileViewModel>(appUserProfile)
+            };
+
+            return View(wrapper);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmOrder(OrderWrapper request)
+        {
+            if (!ModelState.IsValid) return View();
+
+            return View();
         }
 
         [HttpGet("{id}/{categoryID?}/{pageNumber?}/{from?}")]
