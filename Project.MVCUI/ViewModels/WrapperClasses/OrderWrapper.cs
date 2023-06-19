@@ -6,7 +6,6 @@ namespace Project.MVCUI.ViewModels.WrapperClasses
     public class OrderWrapper
     {
         public PaymentDTO PaymentDTO { get; set; } = null!;
-        public Order Order { get; set; } = null!;
         public AppUserProfileViewModel? AppUserProfile { get; set; }
         public AppUserViewModel? AppUser { get; set; }
 
