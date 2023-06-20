@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.ContentModel;
 using Project.BLL.ManagerServices.Abstracts;
 using Project.COMMON.Extensions;
+using Project.COMMON.Tools;
 using Project.ENTITIES.Enums;
 using Project.ENTITIES.Models;
 using Project.MVCUI.Models.ShoppingTools;
@@ -24,7 +26,8 @@ namespace Project.MVCUI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IAppUserManager _appUserManager;
         private readonly IAppUserProfileManager _appUserProfileManager;
-        public ShoppingController(IOrderManager orderManager, IProductManager productManager, ICategoryManager categoryManager, IOrderDetailManager orderDetailManager, IMapper mapper, UserManager<AppUser> userManager, IAppUserManager appUserManager, IAppUserProfileManager appUserProfileManager)
+        private readonly HttpClient _httpClient;
+        public ShoppingController(IOrderManager orderManager, IProductManager productManager, ICategoryManager categoryManager, IOrderDetailManager orderDetailManager, IMapper mapper, UserManager<AppUser> userManager, IAppUserManager appUserManager, IAppUserProfileManager appUserProfileManager, HttpClient httpClient)
         {
             _orderManager = orderManager;
             _productManager = productManager;
@@ -34,6 +37,7 @@ namespace Project.MVCUI.Controllers
             _userManager = userManager;
             _appUserManager = appUserManager;
             _appUserProfileManager = appUserProfileManager;
+            _httpClient = httpClient;
         }
 
         [Route("/")]
@@ -114,7 +118,7 @@ namespace Project.MVCUI.Controllers
                 return Challenge();
             }
 
-            AppUser appUser = _appUserManager.Where(x => x.UserName == User.Identity.Name).Select(x => new AppUser() { Id = x.Id, PhoneNumber = x.PhoneNumber }).FirstOrDefault()!;
+            AppUser appUser = _appUserManager.Where(x => x.UserName == User.Identity.Name).Select(x => new AppUser() { Id = x.Id, PhoneNumber = x.PhoneNumber, Email = x.Email }).FirstOrDefault()!;
             AppUserProfile appUserProfile = _appUserProfileManager.FindByString(appUser.Id)!;
 
             OrderWrapper wrapper = new()
@@ -122,17 +126,83 @@ namespace Project.MVCUI.Controllers
                 AppUser = _mapper.Map<AppUserViewModel>(appUser),
                 AppUserProfile = _mapper.Map<AppUserProfileViewModel>(appUserProfile)
             };
+            wrapper.AppUser.Id = appUser.Id;
 
             return View(wrapper);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> ConfirmOrder(OrderWrapper request)
         {
+            ModelState.Remove("AppUser.PasswordHash");
+            ModelState.Remove("AppUser.PhoneNumber");
+            ModelState.Remove("AppUser.PasswordConfirm");
+            ModelState.Remove("AppUser.UserName");
             if (!ModelState.IsValid) return View();
 
-            return View();
+            Cart? cart = HttpContext.Session.GetSession<Cart>("cart");
+            if (cart == null)
+            {
+                TempData["fail"] = "Sepetinizde ürün bulunmamaktadır!";
+                return RedirectToAction(nameof(ShoppingList));
+            }
+
+            Order order = new();
+            order.TotalPrice = request.PaymentDTO.ShoppingPrice = cart.TotalPrice;
+
+            //Middleware'de builder.Services.AddHttpClient(); koymayı unutma.
+            string apiUrl = "https://localhost:7189/api/Payment/ReceivePayment";
+            HttpResponseMessage postResponse;
+
+            try
+            {
+                _httpClient.Timeout = TimeSpan.FromSeconds(300); //API cevabını 300 saniye bekler, cevap gelmezse catch'e düşer.
+                postResponse = await _httpClient.PostAsJsonAsync(apiUrl, request.PaymentDTO);
+            }
+            catch (Exception exception)
+            {
+                TempData["error"] = $"Banka bağlantıyı reddetti! Alınan hata => {exception.Message}. Hatanın içeriği => {exception.InnerException}";
+                return RedirectToAction(nameof(ConfirmOrder));
+            }
+
+            if (postResponse.IsSuccessStatusCode)
+            {
+                //ViewBag.responseBody = await postResponse.Content.ReadAsStringAsync(); => geriye tip döndürürse, JsonConvert ile çevirebilirsin.
+
+                order.AppUserID = request.AppUser!.Id!;
+                order.ShippedAddress = request.AppUserProfile!.Address;
+                _orderManager.Add(order);
+
+                foreach (CartItem item in cart.Basket)
+                {
+                    OrderDetail orderDetail = new()
+                    {
+                        OrderID = order.ID,
+                        ProductID = item.ID,
+                        TotalPrice = item.SubTotal,
+                        Quantity = item.Amount
+                    };
+                    _orderDetailManager.Add(orderDetail);
+
+                    Product product = _productManager.Find(item.ID)!;
+                    product.Stock -= item.Amount;
+                    _productManager.Update(product);
+                }
+
+                MailService.SendMailAsync(request.AppUser!.Email, $"Siparişiniz başarıyla alındı, Toplam Tutar => {order.TotalPrice.ToString("C2")}", "OnionProject | Sipariş");
+                TempData["success"] = "Siparişiniz bize ulaşmıştır, teşekkür ederiz";
+                return RedirectToAction(nameof(ShoppingList));
+            }
+            else
+            {
+                //ViewBag.error = "Ödeme ile ilgili bir sorun oluştu, lütfen bankanızla iletişime geçin.";
+                string error = await postResponse.Content.ReadAsStringAsync();
+                TempData["error"] = $"Ödeme ile ilgili bir sorun oluştu, lütfen bankanız ile iletişime geçiniz. Alınan hata => {error}";
+            }
+
+            return RedirectToAction(nameof(ConfirmOrder));
         }
 
         [HttpGet("{id}/{categoryID?}/{pageNumber?}/{from?}")]

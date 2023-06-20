@@ -32,7 +32,7 @@ namespace Project.DTO.Models
         [Required(ErrorMessage = "Bu alan boş bırakılamaz")]
         [StringLength(2, MinimumLength = 2, ErrorMessage = "2 karakter olmalıdır")]
         [RegularExpression(@"^\d{2}$", ErrorMessage = "Bu alan sadece rakamlardan oluşmalıdır")]
-        public string CardExpiryMonth { get; set; } = null!;
+        public string CardExpiryMounth { get; set; } = null!;
 
         [Display(Name = "Son kullanma Yılı")]
         [Required(ErrorMessage = "Bu alan boş bırakılamaz")]

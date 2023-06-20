@@ -42,6 +42,8 @@ builder.Services.AddSession(options =>
     options.Cookie.Name = "DonTuchMeSession";
 });
 
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

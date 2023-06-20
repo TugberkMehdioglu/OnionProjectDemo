@@ -36,9 +36,9 @@
             <div class="row gx-card mx-0 align-items-center border-bottom border-200">
                 <div class="col-8 py-3">
                     <div class="d-flex align-items-center">
-                        <a href="../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-1 me-3 d-none d-md-block" src="~/productPictures/@(item.ImagePath??"no-image-icon.png")" alt=""  style="max-width:60px;" /></a>
+                        <a asp-controller="Shopping" asp-action="ProductDetail" asp-route-id="@item.ID"><img class="img-fluid rounded-1 me-3 d-none d-md-block" src="~/productPictures/@(item.ImagePath??"no-image-icon.png")" alt="" style="max-width:60px;" /></a>
                         <div class="flex-1">
-                            <h5 class="fs-0"><a class="text-900" href="../../app/e-commerce/product/product-details.html">@item.Name</a></h5>
+                            <h5 class="fs-0"><a class="text-900" asp-controller="Shopping" asp-action="ProductDetail" asp-route-id="@item.ID">@item.Name</a></h5>
                             <div class="fs--2 fs-md--1"><a class="text-danger" asp-controller="Shopping" asp-action="DeleteProductWithAllAmountFromCart" asp-route-id="@item.ID">Sepetten sil</a></div>
                         </div>
                     </div>
